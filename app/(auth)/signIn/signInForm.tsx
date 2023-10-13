@@ -2,10 +2,22 @@ import { Formik, useFormik } from "formik";
 import * as Yup from "yup";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
+import { userAuth } from "@/app/context/AuthContext";
 
 const SignInForm = () => {
   const inputFieldsStyle =
     "border-2 border-gray-300 rounded-xl p-3 drop-shadow-xl";
+
+  const { user, googleSignIn } = userAuth();
+
+  const handleGoogleSignIn = async () => {
+    try {
+      await googleSignIn();
+      console.log(user);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -79,7 +91,10 @@ const SignInForm = () => {
         <div className="flex-1 h-0.5 w-96 bg-cText"></div>
       </div>
 
-      <button className="text-white text-lg bg-[#132a3f]  rounded-md py-2 px-5 mt-4 drop-shadow-xl flex justify-center gap-2 w-2/12">
+      <button
+        className="text-white text-lg bg-[#132a3f]  rounded-md py-2 px-5 mt-4 drop-shadow-xl flex justify-center gap-2 w-2/12"
+        onClick={handleGoogleSignIn}
+      >
         Continue With <FcGoogle size={25} />
       </button>
     </form>

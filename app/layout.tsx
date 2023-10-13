@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inknut_Antiqua } from "next/font/google";
+import { AuthContextProvider } from "./context/AuthContext";
 
 const inknut = Inknut_Antiqua({
   style: "normal",
@@ -21,7 +22,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inknut.className}>{children}</body>
+      <body className={inknut.className}>
+        <AuthContextProvider>{children}</AuthContextProvider>
+      </body>
     </html>
   );
 }
