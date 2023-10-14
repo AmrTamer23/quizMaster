@@ -93,12 +93,12 @@ const SignInForm = () => {
       </form>
       <div className="flex items-center mt-2">
         <div className="flex-1 h-0.5 bg-cText"></div>
-        <span className="px-3 text-xl">Or</span>
+        <span className="px-3 text-xl">OR</span>
         <div className="flex-1 h-0.5 w-96 bg-cText"></div>
       </div>
 
       <button
-        className="text-white text-lg bg-[#132a3f]  rounded-md py-2 px-5 mt-4 drop-shadow-xl flex justify-center gap-2 w-4/12 hover:bg-gray-100 hover:text-navyBlue hover:border-2 hover:border-blue-500"
+        className="text-white text-lg bg-[#28313A]  rounded-md py-2 px-5 mt-4 drop-shadow-xl flex justify-center items-center gap-2 w-4/12 hover:bg-gray-100 hover:text-navyBlue hover:border-2 hover:border-blue-500"
         onClick={handleGoogleSignIn}
       >
         Continue With <FcGoogle size={25} />
