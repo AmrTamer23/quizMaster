@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Link from "next/link";
-import { userAuth } from "@/app/context/AuthContext";
+import { userAuth } from "@/app/context/UserContext";
 
 const SignUpForm = () => {
   const inputFieldsStyle =
