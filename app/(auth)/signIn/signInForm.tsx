@@ -8,7 +8,7 @@ const SignInForm = () => {
   const inputFieldsStyle =
     "border-2 border-gray-300 rounded-xl p-3 drop-shadow-xl";
 
-  const { user, googleSignIn } = userAuth();
+  const { user, signInWithPassword, googleSignIn } = userAuth();
 
   const handleGoogleSignIn = async () => {
     try {
@@ -30,7 +30,9 @@ const SignInForm = () => {
         .min(8, "Must be 8 characters or more")
         .required("Required"),
     }),
-    onSubmit: (values) => {},
+    onSubmit: (values) => {
+      signInWithPassword(values.email, values.password);
+    },
   });
 
   return (

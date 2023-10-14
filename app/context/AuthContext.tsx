@@ -4,13 +4,16 @@ import {
   signInWithPopup,
   signOut,
   onAuthStateChanged,
+  createUserWithEmailAndPassword,
   GoogleAuthProvider,
 } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth } from "../services/firebase";
 
 type AuthContextType = {
   user: any;
   setUser: any;
+  signUp: (email: string, password: string) => void;
+  signInWithPassword: (email: string, password: string) => void;
   googleSignIn: () => void;
   logOut: () => void;
 };
@@ -18,6 +21,8 @@ type AuthContextType = {
 const AuthContext = createContext<AuthContextType>({
   user: null,
   setUser: null,
+  signUp: () => {},
+  signInWithPassword: () => {},
   googleSignIn: () => {},
   logOut: () => {},
 });
@@ -28,6 +33,26 @@ export const AuthContextProvider = ({
   children: React.ReactNode;
 }) => {
   const [user, setUser] = useState<any>(null);
+
+  const signUp = (email: string, password: string) => {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        setUser(userCredential.user);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const signInWithPassword = (email: string, password: string) => {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        setUser(userCredential.user);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const googleSignIn = () => {
     const provider = new GoogleAuthProvider();
@@ -62,7 +87,16 @@ export const AuthContextProvider = ({
   }, [user]);
 
   return (
-    <AuthContext.Provider value={{ user, setUser, googleSignIn, logOut }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        setUser,
+        signUp,
+        signInWithPassword,
+        googleSignIn,
+        logOut,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

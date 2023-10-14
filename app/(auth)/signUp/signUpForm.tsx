@@ -1,22 +1,20 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Link from "next/link";
+import { userAuth } from "@/app/context/AuthContext";
 
 const SignUpForm = () => {
   const inputFieldsStyle =
     "border-2 border-gray-300 rounded-xl p-3 drop-shadow-xl";
 
+  const { user, signUp } = userAuth();
+
   const formik = useFormik({
     initialValues: {
-      username: "",
       email: "",
       password: "",
     },
     validationSchema: Yup.object({
-      username: Yup.string()
-        .min(3, "Must be 3 characters or more")
-        .max(15, "Must be 15 characters or less")
-        .required("Required"),
       email: Yup.string().email("Invalid email address").required("Required"),
       password: Yup.string()
         .required("No password provided.")
@@ -24,7 +22,7 @@ const SignUpForm = () => {
         .matches(/[a-zA-Z]/, "Password can only contain Latin letters."),
     }),
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      signUp(values.email, values.password);
     },
   });
 
@@ -33,24 +31,6 @@ const SignUpForm = () => {
       onSubmit={formik.handleSubmit}
       className="flex flex-col w-full items-center"
     >
-      <fieldset className="flex flex-col w-4/12 mb-5">
-        <label htmlFor="email" className="text-lg">
-          Username
-        </label>
-        <input
-          type="name"
-          name="username"
-          className={inputFieldsStyle}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.username}
-        />
-        {formik.errors.username &&
-          formik.touched.username &&
-          formik.errors.username && (
-            <div className="text-red-800">{formik.errors.username}</div>
-          )}
-      </fieldset>
       <fieldset className="flex flex-col w-4/12 mb-5">
         <label htmlFor="email" className="text-lg">
           Email
