@@ -13,6 +13,7 @@ const NavBar = () => {
         <h3 className="text-2xl font-medium">Trivia Time</h3>
       </span>
       <UserDropDownMenu
+        points={userDetails.points}
         logOut={logOut}
         children={
           <span className="flex gap-3 items-center hover:cursor-pointer relative">
@@ -20,12 +21,12 @@ const NavBar = () => {
               src={
                 user.photoURL
                   ? user.photoURL
-                  : `https://ui-avatars.com/api/?name=${userDetails.userName}&background=random`
+                  : `https://ui-avatars.com/api/?name=${userDetails.userName}&background=random&color=fff`
               }
               alt="Avatar"
               width={40}
               height={10}
-              className="rounded-full h-fit "
+              className="rounded-full h-fit bg-black "
             />
             <h3 className="text-lg font-medium">
               {user.displayName ? user.displayName : userDetails.userName}
