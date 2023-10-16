@@ -1,23 +1,32 @@
-import { Formik, useFormik } from "formik";
+import { useFormik } from "formik";
 import * as Yup from "yup";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { userAuth } from "@/app/context/UserContext";
+import { redirect } from "next/navigation";
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import Spinner from "@/assets/Spinner.gif";
 
-const SignInForm = () => {
+function SignInForm() {
+  const { user, signInWithPassword, googleSignIn } = userAuth();
+  const [loading, setLoading] = useState(false);
+  const handleLoading = () => {
+    Promise.resolve(
+      setTimeout(() => {
+        setLoading(true);
+      }, 500)
+    );
+  };
+  useEffect(() => {
+    if (user) {
+      handleLoading();
+      redirect("/home");
+    }
+  }, [user]);
+
   const inputFieldsStyle =
     "border-2 border-gray-300 rounded-xl p-3 drop-shadow-xl";
-
-  const { user, userPoints, signInWithPassword, googleSignIn } = userAuth();
-
-  const handleGoogleSignIn = async () => {
-    try {
-      await googleSignIn();
-      console.log(user);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const formik = useFormik({
     initialValues: {
@@ -35,7 +44,7 @@ const SignInForm = () => {
     },
   });
 
-  return (
+  return !loading ? (
     <div className="flex flex-col w-full items-center gap-3">
       <form
         onSubmit={formik.handleSubmit}
@@ -99,11 +108,15 @@ const SignInForm = () => {
 
       <button
         className="text-white text-lg bg-[#28313A]  rounded-md py-2 px-5 mt-4 drop-shadow-xl flex justify-center items-center gap-2 w-4/12 hover:bg-gray-100 hover:text-navyBlue hover:border-2 hover:border-blue-500"
-        onClick={handleGoogleSignIn}
+        onClick={async () => {
+          await googleSignIn();
+        }}
       >
         Continue With <FcGoogle size={25} />
       </button>
     </div>
+  ) : (
+    <Image src={Spinner} alt="Spinner" width={50} height={50} />
   );
-};
+}
 export default SignInForm;

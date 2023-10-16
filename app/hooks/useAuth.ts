@@ -1,5 +1,6 @@
 import {
   createUserWithEmailAndPassword,
+  signInWithEmailAndPassword ,
   GoogleAuthProvider,
   signInWithPopup,
   signOut,
@@ -7,6 +8,9 @@ import {
 import { auth } from "../services/firebase";
 import useFirestore from "./useFirestore";
 import { Dispatch } from "react";
+import { useRouter } from "next/navigation";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const useAuth = ({
   user,
@@ -15,28 +19,39 @@ const useAuth = ({
   user: any;
   setUser: Dispatch<any>;
 }) => {
-  const { initUserPoints, updateUserPoints, isDocExists } = useFirestore();
+  const { initUserPoints, updateUserPoints,setUsername, isDocExists } = useFirestore();
 
-  const signUp = async (email: string, password: string) => {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        if (userCredential.user) {
-          initUserPoints(userCredential.user.uid);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const router = useRouter();
+ 
+  const signUp = async (email: string, password: string, userName: string): Promise<string> => {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+  
+      if (userCredential.user) {
+        await setUsername(userCredential.user.uid, userName);
+        await initUserPoints(userCredential.user.uid);
+        return 'success';
+      }
+     return 'Something went wrong!';
+    } catch (error: any) {
+      console.error(error);
+      return error.message;
+    }
   };
 
-  const signInWithPassword = (email: string, password: string) => {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        setUser(userCredential.user);
+  const signInWithPassword = async (email: string, password: string) => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password).then((result) => {
+        setUser(result.user);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      
+    } catch (error) {
+      console.log(error);
+    }
+
+    if (user && !isDocExists(user.uid)) {
+      initUserPoints(user.uid);
+    }
   };
 
   const googleSignIn = async () => {
@@ -44,6 +59,7 @@ const useAuth = ({
     signInWithPopup(auth, provider)
       .then((result) => {
         setUser(result.user);
+        
         console.log("User ID:", result.user.uid);
       })
       .catch((error) => {
@@ -55,10 +71,11 @@ const useAuth = ({
     }
   };
 
-  const logOut = () => {
-    signOut(auth)
+  const logOut = async() => {
+    await signOut(auth)
       .then(() => {
         setUser(null);
+        router.push("/signIn");
       })
       .catch((error) => {
         console.log(error);

@@ -2,10 +2,21 @@ import { doc, setDoc, getDoc, updateDoc, collection } from "firebase/firestore";
 import { db } from "../services/firebase";
 
 const useFirestore = () => {
+
+
+  const setUsername = async (uid: string, username: string) => {
+    const docRef = doc(collection(db, "users"), uid);
+    await setDoc(docRef, {
+      userName: username,
+    }, { merge: true });
+  }
+
+
+
   const initUserPoints = async (uid: any) => {
     try {
       const docRef = doc(collection(db, "users"), uid);
-      await setDoc(docRef, {
+      await updateDoc(docRef, {
         userId: uid,
         points: 0,
       });
@@ -46,6 +57,7 @@ const useFirestore = () => {
   return {
     initUserPoints,
     getUserPoints,
+    setUsername,
     updateUserPoints,
     isDocExists,
   };

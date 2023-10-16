@@ -1,10 +1,16 @@
-import AuthLayout from "./(auth)/layout";
-import SignIn from "./(auth)/signIn/page";
+"use client";
+import { useEffect } from "react";
+import { userAuth } from "./context/UserContext";
+import { redirect } from "next/navigation";
 
 export default function Home() {
-  return (
-    <main>
-      <AuthLayout children={<SignIn />} />
-    </main>
-  );
+  const { user } = userAuth();
+  useEffect(() => {
+    if (!user) {
+      redirect("/signIn");
+    } else {
+      redirect("/home");
+    }
+  }, [user]);
+  return <></>;
 }

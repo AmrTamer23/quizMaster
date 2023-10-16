@@ -1,5 +1,5 @@
 import logo from "@/assets/logo.png";
-export default function DashboardLayout({
+export default function AuthLayout({
   children,
 }: {
   children: React.ReactNode;
