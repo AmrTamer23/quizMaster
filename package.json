@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
+    "axios": "^1.5.1",
     "encodeing": "^1.0.0",
     "encoding": "^0.1.13",
     "firebase": "^10.5.0",

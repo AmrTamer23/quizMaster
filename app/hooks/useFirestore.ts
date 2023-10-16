@@ -3,6 +3,8 @@ import { db } from "../services/firebase";
 
 const useFirestore = () => {
 
+  
+
 
   const setUsername = async (uid: string, username: string) => {
     const docRef = doc(collection(db, "users"), uid);
@@ -11,7 +13,16 @@ const useFirestore = () => {
     }, { merge: true });
   }
 
+  const getUserDetails = async (uid: string) => {
+    const docRef = doc(db, "users", uid);
+    const docSnap = await getDoc(docRef);
 
+    if (docSnap.exists()) {
+      return docSnap.data();
+    } else {
+      return false;
+    }
+  }
 
   const initUserPoints = async (uid: any) => {
     try {
@@ -25,16 +36,6 @@ const useFirestore = () => {
     }
   };
 
-  const getUserPoints = async (uid: string) => {
-    const docRef = doc(db, "users", uid);
-    const docSnap = await getDoc(docRef);
-
-    if (docSnap.exists()) {
-      return docSnap.data();
-    } else {
-      initUserPoints(uid);
-    }
-  };
 
   const updateUserPoints = async (uid: string, points: number) => {
     const docRef = doc(db, "users", uid);
@@ -56,8 +57,8 @@ const useFirestore = () => {
 
   return {
     initUserPoints,
-    getUserPoints,
     setUsername,
+    getUserDetails,
     updateUserPoints,
     isDocExists,
   };

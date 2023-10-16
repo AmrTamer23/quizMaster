@@ -9,9 +9,10 @@ import useFirestore from "../hooks/useFirestore";
 
 const UserContext = createContext<UserContextType>({
   user: null,
-  userPoints: 0,
+  userDetails: null,
   updateUserPoints: () => {},
-  signUp: () => {},
+  getUserDetails: () => {},
+  signUp: () => Promise.resolve(""),
   signInWithPassword: () => {},
   googleSignIn: () => {},
   logOut: () => {},
@@ -23,22 +24,22 @@ export const UserContextProvider = ({
   children: React.ReactNode;
 }) => {
   const [user, setUser] = useState<any>(null);
-  const [userPoints, setUserPoints] = useState<number>(0);
+  const [userDetails, setUserDetails] = useState<any>(null);
   const { signUp, signInWithPassword, googleSignIn, logOut } = useAuth({
     user,
     setUser,
   });
-  const { getUserPoints, updateUserPoints } = useFirestore();
+  const { getUserDetails, updateUserPoints } = useFirestore();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
-        getUserPoints(user.uid).then(
-          (data: null | undefined | DocumentData) => {
-            if (data) setUserPoints(data.points);
+        getUserDetails(user.uid).then((data: DocumentData | false) => {
+          if (data !== false) {
+            setUserDetails(data);
           }
-        );
+        });
       } else {
         setUser(null);
       }
@@ -50,8 +51,9 @@ export const UserContextProvider = ({
     <UserContext.Provider
       value={{
         user,
-        userPoints,
+        userDetails,
         updateUserPoints,
+        getUserDetails,
         signUp,
         signInWithPassword,
         googleSignIn,
