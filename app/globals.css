@@ -6,3 +6,26 @@ body
 {
     background-color: #f5f5f5;
 }
+
+@media screen and (min-width: 640px)
+{
+  .item:nth-child(odd) {
+      justify-self: end;
+      
+    }
+    
+    .item:nth-child(even) {
+      justify-self: start;
+    }
+  
+      .item:nth-child(3),
+      .item:nth-child(4) {
+          align-self: start;
+      }
+  
+      .item:nth-child(1),
+      .item:nth-child(2) {
+          align-self: end;
+      }
+}
+  

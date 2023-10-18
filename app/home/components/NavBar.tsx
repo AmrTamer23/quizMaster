@@ -7,10 +7,10 @@ const NavBar = () => {
   const { user, userDetails, logOut } = userAuth();
 
   return (
-    <div className="flex bg-gray-200 justify-between p-3 items-center">
+    <nav className="flex bg-gray-200 justify-between p-3 items-center ">
       <span className="flex items-center gap-3">
         <Image src={logo} alt="logo" width={50} height={50} />
-        <h3 className="text-2xl font-medium">Trivia Time</h3>
+        <h3 className="text-2xl font-medium hidden lg:block">Trivia Time</h3>
       </span>
       <UserDropDownMenu
         points={userDetails.points}
@@ -35,7 +35,7 @@ const NavBar = () => {
           </span>
         }
       />
-    </div>
+    </nav>
   );
 };
 
