@@ -9,7 +9,7 @@ export default function Home() {
     if (!user) {
       redirect("/signIn");
     } else {
-      redirect("/home");
+      redirect("/dashboard");
     }
   }, [user]);
   return <></>;

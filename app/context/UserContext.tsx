@@ -3,13 +3,17 @@ import { useContext, createContext, useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../services/firebase";
 import { DocumentData } from "firebase/firestore/lite";
-import { UserContextType } from "../utils/types";
+import { UserContextType, userDetailsType } from "../utils/types";
 import useAuth from "../hooks/useAuth";
 import useFirestore from "../hooks/useFirestore";
 
 const UserContext = createContext<UserContextType>({
   user: null,
-  userDetails: null,
+  userDetails: {
+    name: "",
+    points: 0,
+    userName: "",
+  },
   updateUserPoints: () => {},
   getUserDetails: () => {},
   signUp: () => Promise.resolve(""),
@@ -24,7 +28,11 @@ export const UserContextProvider = ({
   children: React.ReactNode;
 }) => {
   const [user, setUser] = useState<any>(null);
-  const [userDetails, setUserDetails] = useState<any>(null);
+  const [userDetails, setUserDetails] = useState<userDetailsType>({
+    name: "",
+    points: 0,
+    userName: "",
+  });
   const { signUp, signInWithPassword, googleSignIn, logOut } = useAuth({
     user,
     setUser,
@@ -37,7 +45,7 @@ export const UserContextProvider = ({
         setUser(user);
         getUserDetails(user.uid).then((data: DocumentData | false) => {
           if (data !== false) {
-            setUserDetails(data);
+            setUserDetails(data as userDetailsType);
           }
         });
       } else {

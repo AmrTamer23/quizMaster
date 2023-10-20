@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inknut_Antiqua } from "next/font/google";
 import { UserContextProvider } from "./context/UserContext";
+import NavBar from "./(home)/components/NavBar";
 
 const inknut = Inknut_Antiqua({
   style: "normal",
@@ -22,7 +23,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inknut.className}>
+      <body className={`${inknut.className} select-none`}>
         <UserContextProvider>{children}</UserContextProvider>
       </body>
     </html>

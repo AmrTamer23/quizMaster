@@ -1,9 +1,10 @@
+"use client";
 import { userAuth } from "@/app/context/UserContext";
 import logo from "@/assets/logo.png";
 import Image from "next/image";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import UserDropDownMenu from "./ui/UserDropDown";
-const NavBar = () => {
+export default function NavBar() {
   const { user, userDetails, logOut } = userAuth();
 
   return (
@@ -12,6 +13,7 @@ const NavBar = () => {
         <Image src={logo} alt="logo" width={50} height={50} />
         <h3 className="text-2xl font-medium hidden lg:block">Trivia Time</h3>
       </span>
+
       <UserDropDownMenu
         points={userDetails.points}
         logOut={logOut}
@@ -37,6 +39,4 @@ const NavBar = () => {
       />
     </nav>
   );
-};
-
-export default NavBar;
+}

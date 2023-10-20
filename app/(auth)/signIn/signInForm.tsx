@@ -11,17 +11,10 @@ import Spinner from "@/assets/Spinner.gif";
 function SignInForm() {
   const { user, signInWithPassword, googleSignIn } = userAuth();
   const [loading, setLoading] = useState(false);
-  const handleLoading = () => {
-    Promise.resolve(
-      setTimeout(() => {
-        setLoading(true);
-      }, 500)
-    );
-  };
+
   useEffect(() => {
     if (user) {
-      handleLoading();
-      redirect("/home");
+      redirect("/dashboard");
     }
   }, [user]);
 

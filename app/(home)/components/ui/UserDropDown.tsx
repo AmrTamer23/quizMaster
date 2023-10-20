@@ -1,3 +1,4 @@
+"use client";
 import { ReactNode, Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 

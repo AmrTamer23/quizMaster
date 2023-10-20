@@ -1,6 +1,13 @@
+export type userDetailsType = {
+    name: string;
+    userName?: string;
+    points: number;
+    
+};
+
 export type UserContextType = {
     user: any;
-    userDetails: any;
+    userDetails: userDetailsType;
     updateUserPoints: (uid: string, points: number) => void;
     getUserDetails: (uid: string) => void;
     signUp: (email: string, password: string, userName: string) => Promise<string>;
@@ -8,4 +15,10 @@ export type UserContextType = {
     googleSignIn: () => void;
     logOut: () => void;
   };
+
+  export type QuizCategorieType = {
+    
+      category: "cs" | "geo" | "history" | "sports";
+    
+  }
   
