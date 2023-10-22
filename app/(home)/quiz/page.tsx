@@ -5,11 +5,12 @@ import { IoBasketballOutline } from "react-icons/io5";
 import { MdOutlineHistoryEdu } from "react-icons/md";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { format } from "path";
 import { formatTime } from "@/app/utils/helpers";
+import { useRouter } from "next/navigation";
 
 function QuizPage() {
   const currGenre = useSearchParams().get("category");
+  const router = useRouter();
 
   const genres = {
     cs: { title: "Computer Science", icon: <FiCpu size={40} /> },
@@ -63,6 +64,48 @@ function QuizPage() {
       options: ["Queue", "Stack", "Linked List", "Array"],
       correctAnswer: 1,
     },
+    {
+      question: "What is the purpose of the 'if' statement in programming?",
+      options: [
+        "To declare a variable",
+        "To perform a loop",
+        "To define a function",
+        "To make conditional decisions",
+      ],
+      correctAnswer: 3,
+    },
+    {
+      question: "What does HTML stand for?",
+      options: [
+        "Hyper Transfer Markup Language",
+        "Hyper Text Markup Language",
+        "High Tech Multi-Language",
+        "Hyperlink and Text Markup Language",
+      ],
+      correctAnswer: 1,
+    },
+    {
+      question:
+        "Which programming language is often used for developing mobile applications?",
+      options: ["Java", "Python", "C++", "Ruby"],
+      correctAnswer: 0,
+    },
+    {
+      question: "What does RAM stand for in computer terms?",
+      options: [
+        "Random Access Memory",
+        "Read-Only Memory",
+        "Real-time Application Memory",
+        "Rapid Access Module",
+      ],
+      correctAnswer: 0,
+    },
+    {
+      question:
+        "Which data structure follows the Last-In-First-Out (LIFO) order?",
+      options: ["Queue", "Stack", "Linked List", "Array"],
+      correctAnswer: 1,
+    },
   ];
 
   const [selectedAnswers, setSelectedAnswers] = useState<number[]>([]);
@@ -73,9 +116,32 @@ function QuizPage() {
     setSelectedAnswers(newSelectedAnswers);
   };
 
+  const [score, setScore] = useState(0);
+
+  useEffect(() => {
+    let newScore = 0;
+    for (let i = 0; i < quizData.length; i++) {
+      if (quizData[i].correctAnswer === selectedAnswers[i]) {
+        newScore += 1;
+      }
+    }
+    setScore(newScore);
+  }, [selectedAnswers]);
+
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
   const handleNextQuestion = () => {
+    if (currentQuestionIndex === quizData.length - 1) {
+      localStorage.setItem(
+        "quizResult",
+        JSON.stringify({
+          score: score,
+          genre: selectedGenre.title,
+        })
+      );
+      router.push("/quiz/result");
+      return;
+    }
     setCurrentQuestionIndex(currentQuestionIndex + 1);
   };
 

@@ -42,6 +42,7 @@ function Dashboard() {
       <div className="grid grid-col-1 lg:grid-cols-2 gap-5  w-full h-full lg:px-72 lg:mb-16 ">
         {quizGenres.map((genre) => (
           <div
+            key={genre.title}
             onClick={genre.onclick}
             className="item bg-zinc-300 hover:bg-secondary cursor-pointer rounded-3xl flex flex-col gap-2 justify-center items-center lg:h-4/5 w-4/5 place-self-center py-7 "
           >
