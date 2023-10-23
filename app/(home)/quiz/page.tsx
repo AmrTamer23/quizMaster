@@ -7,10 +7,12 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { formatTime } from "@/app/utils/helpers";
 import { useRouter } from "next/navigation";
+import { userContext } from "@/app/context/UserContext";
 
 function QuizPage() {
   const currGenre = useSearchParams().get("category");
   const router = useRouter();
+  const { user, updateUserPoints } = userContext();
 
   const genres = {
     cs: { title: "Computer Science", icon: <FiCpu size={40} /> },
@@ -132,13 +134,14 @@ function QuizPage() {
 
   const handleNextQuestion = () => {
     if (currentQuestionIndex === quizData.length - 1) {
-      localStorage.setItem(
+      sessionStorage.setItem(
         "quizResult",
         JSON.stringify({
           score: score,
           genre: selectedGenre.title,
         })
       );
+      score > 5 && updateUserPoints(user.uid, score);
       router.push("/quiz/result");
       return;
     }

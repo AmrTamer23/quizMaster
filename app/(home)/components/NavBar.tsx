@@ -1,11 +1,11 @@
 "use client";
-import { userAuth } from "@/app/context/UserContext";
+import { userContext } from "@/app/context/UserContext";
 import logo from "@/assets/logo.png";
 import Image from "next/image";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import UserDropDownMenu from "./ui/UserDropDown";
 export default function NavBar() {
-  const { user, userDetails, logOut } = userAuth();
+  const { user, userDetails, logOut } = userContext();
 
   return (
     <nav className="flex bg-gray-200 justify-between p-3 items-center ">

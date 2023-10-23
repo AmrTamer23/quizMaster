@@ -2,7 +2,7 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Link from "next/link";
-import { userAuth } from "@/app/context/UserContext";
+import { userContext } from "@/app/context/UserContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
@@ -11,7 +11,7 @@ const SignUpForm = () => {
   const inputFieldsStyle =
     "border-2 border-gray-300 rounded-xl p-3 drop-shadow-xl";
 
-  const { signUp } = userAuth();
+  const { signUp } = userContext();
   const router = useRouter();
 
   const formik = useFormik({

@@ -2,14 +2,14 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
-import { userAuth } from "@/app/context/UserContext";
+import { userContext } from "@/app/context/UserContext";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Spinner from "@/assets/Spinner.gif";
 
 function SignInForm() {
-  const { user, signInWithPassword, googleSignIn } = userAuth();
+  const { user, signInWithPassword, googleSignIn } = userContext();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {

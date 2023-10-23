@@ -1,10 +1,11 @@
 "use client";
-
+import { userContext } from "@/app/context/UserContext";
 import { useRouter } from "next/navigation";
 
 const Result = () => {
   const router = useRouter();
-  const quizData = localStorage.getItem("quizResult");
+  const { userDetails } = userContext();
+  const quizData = sessionStorage.getItem("quizResult");
   let data: { score: number; genre: string } = { score: 0, genre: "" };
   if (quizData) {
     data = JSON.parse(quizData);
@@ -25,7 +26,9 @@ const Result = () => {
             <h2 className="text-2xl text-cText">
               You got {data.score} out of 10 Points
             </h2>
-            <h3 className="text-xl text-cText">Your Total Score is 40</h3>
+            <h3 className="text-xl text-cText">
+              Your Total Score is {userDetails.points + data.score}
+            </h3>
           </>
         ) : (
           <>

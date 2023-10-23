@@ -73,6 +73,6 @@ export const UserContextProvider = ({
   );
 };
 
-export const userAuth = () => {
+export const userContext = () => {
   return useContext(UserContext);
 };

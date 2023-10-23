@@ -1,11 +1,11 @@
 "use client";
 import { useEffect } from "react";
 import NavBar from "./components/NavBar";
-import { userAuth } from "@/app/context/UserContext";
+import { userContext } from "@/app/context/UserContext";
 import { redirect } from "next/navigation";
 
 const HomeLayout = ({ children }: { children: React.ReactNode }) => {
-  const { user } = userAuth();
+  const { user } = userContext();
 
   useEffect(() => {
     if (!user) {
