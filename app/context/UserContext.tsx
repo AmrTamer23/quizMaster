@@ -1,9 +1,9 @@
 "use client";
 import { useContext, createContext, useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../services/firebase";
+import { auth } from "../lib/firebase";
 import { DocumentData } from "firebase/firestore/lite";
-import { UserContextType, userDetailsType } from "../utils/types";
+import { UserContextType, userDetailsType } from "../lib/types";
 import useAuth from "../hooks/useAuth";
 import useFirestore from "../hooks/useFirestore";
 

@@ -14,11 +14,15 @@ export type UserContextType = {
     signInWithPassword: (email: string, password: string) => void;
     googleSignIn: () => void;
     logOut: () => void;
-  };
+};
 
-  export type QuizCategorieType = {
-    
-      category: "cs" | "geo" | "history" | "sports";
-    
-  }
-  
+export type QuizCategorieType = "cs" | "geo" | "history" | "sports";
+
+export type QuizQuestion = {
+    category: string;
+    type: 'multiple';
+    difficulty: 'easy' | 'medium' | 'hard';
+    question: string;
+    correct_answer: string;
+    incorrect_answers: string[];
+};

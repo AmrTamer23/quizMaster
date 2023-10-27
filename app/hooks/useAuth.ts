@@ -5,7 +5,7 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
-import { auth } from "../services/firebase";
+import { auth } from "../lib/firebase";
 import useFirestore from "./useFirestore";
 import { Dispatch } from "react";
 import { useRouter } from "next/navigation";

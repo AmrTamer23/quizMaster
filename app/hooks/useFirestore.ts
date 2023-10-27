@@ -1,5 +1,5 @@
 import { doc, setDoc, getDoc, updateDoc, collection } from "firebase/firestore";
-import { db } from "../services/firebase";
+import { db } from "../lib/firebase";
 
 const useFirestore = () => {
 

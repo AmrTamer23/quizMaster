@@ -1,6 +1,6 @@
 "use client";
 import { userContext } from "@/app/context/UserContext";
-import logo from "@/assets/logo.png";
+import logo from "@/public/logo.png";
 import Image from "next/image";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import UserDropDownMenu from "./ui/UserDropDown";

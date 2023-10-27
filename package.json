@@ -10,11 +10,13 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
+    "@types/he": "^1.2.2",
     "axios": "^1.5.1",
     "encodeing": "^1.0.0",
     "encoding": "^0.1.13",
     "firebase": "^10.5.0",
     "formik": "^2.4.5",
+    "he": "^1.2.0",
     "next": "13.5.4",
     "react": "^18",
     "react-dom": "^18",
