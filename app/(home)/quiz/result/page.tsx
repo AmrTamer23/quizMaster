@@ -1,5 +1,7 @@
 "use client";
 import { userContext } from "@/app/context/UserContext";
+import getGenreDetails from "@/app/lib/getGenreDetails";
+import { QuizCategorieType } from "@/app/lib/types";
 import { useRouter } from "next/navigation";
 
 const Result = () => {
@@ -10,6 +12,7 @@ const Result = () => {
   if (quizData) {
     data = JSON.parse(quizData);
   }
+  const genreDetails = getGenreDetails(data.genre as QuizCategorieType);
 
   const passed: boolean = data.score > 5 ? true : false;
 
@@ -45,7 +48,7 @@ const Result = () => {
       <span className="flex flex-col items-center gap-5">
         {passed ? (
           <button className=" rounded-lg px-10 py-3 text-white bg-secondary">
-            Take another Quiz about {data.genre}
+            Take another Quiz about {genreDetails?.title}
           </button>
         ) : (
           <button className=" rounded-lg px-10 py-3 text-white bg-slate-800">
