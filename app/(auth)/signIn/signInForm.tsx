@@ -1,22 +1,19 @@
+"use client";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { userContext } from "@/app/context/UserContext";
-import { redirect } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Spinner from "@/assets/Spinner.gif";
+import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 
 function SignInForm() {
-  const { user, signInWithPassword, googleSignIn } = userContext();
+  const { signInWithPassword, googleSignIn } = userContext();
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    if (user) {
-      redirect("/dashboard");
-    }
-  }, [user]);
+  const router = useRouter();
 
   const inputFieldsStyle =
     "border-2 border-gray-300 rounded-xl p-3 drop-shadow-xl";
@@ -102,7 +99,12 @@ function SignInForm() {
       <button
         className="text-black text-lg bg-secondary  rounded-md py-2 px-5 mt-4 drop-shadow-xl flex justify-center items-center gap-2 w-4/12 hover:bg-gray-100 hover:border-2 hover:border-blue-500"
         onClick={async () => {
-          await googleSignIn();
+          Promise.resolve(setLoading(true)).then(async () => {
+            await googleSignIn().then(() => {
+              Cookies.set("loggedIn", "true");
+              router.push("/dashboard");
+            });
+          });
         }}
       >
         Continue With <FcGoogle size={25} />

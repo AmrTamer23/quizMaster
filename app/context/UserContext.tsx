@@ -18,7 +18,7 @@ const UserContext = createContext<UserContextType>({
   updateUserDetails: () => {},
   signUp: () => Promise.resolve(""),
   signInWithPassword: () => {},
-  googleSignIn: () => {},
+  googleSignIn: () => Promise.resolve(),
   logOut: () => {},
 });
 

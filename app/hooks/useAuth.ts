@@ -1,3 +1,4 @@
+
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword ,
@@ -9,6 +10,7 @@ import { auth } from "../lib/firebase";
 import useFirestore from "./useFirestore";
 import { Dispatch } from "react";
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -44,12 +46,14 @@ const useAuth = ({
       await signInWithEmailAndPassword(auth, email, password).then((result) => {
         setUser(result.user);
       })
+      Cookies.set("loggedIn", "true");
       
     } catch (error) {
       console.log(error);
     }
 
     if (user && !isDocExists(user.uid)) {
+      
       initUserPoints(user.uid);
     }
   };
@@ -59,6 +63,7 @@ const useAuth = ({
     signInWithPopup(auth, provider)
       .then((result) => {
         setUser(result.user);
+        Cookies.set("loggedIn", "true");
         
         console.log("User ID:", result.user.uid);
       })
@@ -75,6 +80,7 @@ const useAuth = ({
     await signOut(auth)
       .then(() => {
         setUser(null);
+        Cookies.remove("loggedIn");
         router.push("/signIn");
       })
       .catch((error) => {

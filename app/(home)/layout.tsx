@@ -1,17 +1,9 @@
 "use client";
-import { useEffect } from "react";
 import NavBar from "./components/NavBar";
 import { userContext } from "@/app/context/UserContext";
-import { redirect } from "next/navigation";
 
 const HomeLayout = ({ children }: { children: React.ReactNode }) => {
   const { user } = userContext();
-
-  useEffect(() => {
-    if (!user) {
-      redirect("/signIn");
-    }
-  }, [user]);
 
   return (
     user && (
