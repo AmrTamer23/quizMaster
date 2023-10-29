@@ -1,14 +1,11 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inknut_Antiqua } from "next/font/google";
+import { Roboto_Slab } from "next/font/google";
 import { UserContextProvider } from "./context/UserContext";
-import NavBar from "./(home)/components/NavBar";
 
-const inknut = Inknut_Antiqua({
-  style: "normal",
-  weight: "400",
-  display: "swap",
-  subsets: ["latin-ext", "devanagari"],
+const robotoSlab = Roboto_Slab({
+  weight: "500",
+  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
@@ -23,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inknut.className} select-none`}>
+      <body className={`${robotoSlab.className} antialiased `}>
         <UserContextProvider>{children}</UserContextProvider>
       </body>
     </html>

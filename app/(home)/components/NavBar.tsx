@@ -4,6 +4,7 @@ import logo from "@/public/logo.png";
 import Image from "next/image";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import UserDropDownMenu from "./ui/UserDropDown";
+
 export default function NavBar() {
   const { user, userDetails, logOut } = userContext();
 
@@ -15,11 +16,10 @@ export default function NavBar() {
       </span>
 
       <UserDropDownMenu
-        points={userDetails.points}
         logOut={logOut}
         children={
           <span className="flex gap-3 items-center hover:cursor-pointer relative">
-            <img
+            <Image
               src={
                 user.photoURL
                   ? user.photoURL

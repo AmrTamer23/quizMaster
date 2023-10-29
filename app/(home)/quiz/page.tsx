@@ -6,7 +6,7 @@ import useQuizState from "@/app/hooks/useQuizState";
 import getGenreDetails from "@/app/lib/getGenreDetails";
 import { QuizCategorieType } from "@/app/lib/types";
 
-function QuizPage() {
+const QuizPage = () => {
   const currGenre = useSearchParams().get("category");
   const genreDetails = getGenreDetails(currGenre as QuizCategorieType);
   const {
@@ -20,6 +20,8 @@ function QuizPage() {
   } = useQuizState(currGenre as QuizCategorieType);
 
   const progress = (currentQuestionIndex / 10) * 100;
+
+  console.log(quizData);
 
   return (
     <Suspense fallback={<p className="text-7xl">Loading.....</p>}>
@@ -87,6 +89,6 @@ function QuizPage() {
       </div>
     </Suspense>
   );
-}
+};
 
 export default QuizPage;

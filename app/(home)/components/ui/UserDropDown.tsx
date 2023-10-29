@@ -1,6 +1,8 @@
 "use client";
-import { ReactNode, Fragment } from "react";
+import { ReactNode, Fragment, useEffect } from "react";
 import { Menu, Transition } from "@headlessui/react";
+import { usePathname } from "next/navigation";
+import { userContext } from "@/app/context/UserContext";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -8,13 +10,20 @@ function classNames(...classes: string[]) {
 
 export default function UserDropDown({
   children,
-  points,
   logOut,
 }: {
   children: ReactNode;
-  points: number;
   logOut: () => void;
 }) {
+  const { userDetails, updateUserDetails } = userContext();
+
+  const pathName = usePathname();
+
+  useEffect(() => {
+    console.log(pathName);
+    if (pathName == "/quiz/result") updateUserDetails;
+  }, [pathName]);
+
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -43,7 +52,7 @@ export default function UserDropDown({
                     "block px-4 py-2 text-sm cursor-pointer"
                   )}
                 >
-                  Points: {points}
+                  Points: {userDetails.points}
                 </span>
               )}
             </Menu.Item>

@@ -2,11 +2,11 @@
 import { userContext } from "@/app/context/UserContext";
 import getGenreDetails from "@/app/lib/getGenreDetails";
 import { QuizCategorieType } from "@/app/lib/types";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { useEffect } from "react";
 
 const Result = () => {
-  const router = useRouter();
-  const { userDetails } = userContext();
+  const { user, userDetails, updateUserDetails } = userContext();
   const quizData = sessionStorage.getItem("quizResult");
   let data: { score: number; genre: string } = { score: 0, genre: "" };
   if (quizData) {
@@ -15,6 +15,8 @@ const Result = () => {
   const genreDetails = getGenreDetails(data.genre as QuizCategorieType);
 
   const passed: boolean = data.score > 5 ? true : false;
+
+  console.log(quizData);
 
   return (
     <div
@@ -52,15 +54,14 @@ const Result = () => {
           </button>
         ) : (
           <button className=" rounded-lg px-10 py-3 text-white bg-slate-800">
-            Try again in {data.genre}
+            Try again in {genreDetails?.title}
           </button>
         )}
-        <p
-          className="text-base underline cursor-pointer"
-          onClick={() => router.push("/dashboard")}
-        >
-          Back To Dashboard
-        </p>
+        <Link href={"/dashboard"}>
+          <p className="text-base underline cursor-pointer">
+            Back To Dashboard
+          </p>
+        </Link>
       </span>
     </div>
   );

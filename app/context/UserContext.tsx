@@ -1,5 +1,5 @@
 "use client";
-import { useContext, createContext, useState, useEffect } from "react";
+import { useContext, createContext, useState, useEffect, useMemo } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../lib/firebase";
 import { DocumentData } from "firebase/firestore/lite";
@@ -15,7 +15,7 @@ const UserContext = createContext<UserContextType>({
     userName: "",
   },
   updateUserPoints: () => {},
-  getUserDetails: () => {},
+  updateUserDetails: () => {},
   signUp: () => Promise.resolve(""),
   signInWithPassword: () => {},
   googleSignIn: () => {},
@@ -39,6 +39,14 @@ export const UserContextProvider = ({
   });
   const { getUserDetails, updateUserPoints } = useFirestore();
 
+  const updateUserDetails = async () => {
+    getUserDetails(user.uid).then((data: DocumentData | false) => {
+      if (data !== false) {
+        setUserDetails(data as userDetailsType);
+      }
+    });
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -55,22 +63,21 @@ export const UserContextProvider = ({
     return unsubscribe;
   }, [user]);
 
-  return (
-    <UserContext.Provider
-      value={{
-        user,
-        userDetails,
-        updateUserPoints,
-        getUserDetails,
-        signUp,
-        signInWithPassword,
-        googleSignIn,
-        logOut,
-      }}
-    >
-      {children}
-    </UserContext.Provider>
+  const value = useMemo(
+    () => ({
+      user,
+      userDetails,
+      updateUserPoints,
+      updateUserDetails,
+      signUp,
+      signInWithPassword,
+      googleSignIn,
+      logOut,
+    }),
+    [user, userDetails]
   );
+
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
 
 export const userContext = () => {
