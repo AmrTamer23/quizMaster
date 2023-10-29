@@ -26,22 +26,22 @@ const QuizPage = () => {
   return (
     <Suspense fallback={<p className="text-7xl">Loading.....</p>}>
       <div className="flex flex-col justify-center items-center w-full h-full lg:px-96">
-        <span className="flex justify-between w-11/12 mb-5">
+        <span className="flex justify-between items-center w-11/12 mb-5">
           <span className="flex items-center gap-3 text-2xl">
             {genreDetails?.icon} {`${genreDetails?.title} Quiz`}
           </span>
-          <span className="text-2xl self-end font-mono">
+          <span className="text-2xl self-end">
             Time Left : {formatTime(timeLeft)}
           </span>
         </span>
         <div className="h-1 w-11/12 relative">
           <span
-            className=" bg-secondary h-full absolute"
+            className=" bg-primary h-full absolute"
             style={{ width: `${progress}%` }}
           ></span>
         </div>
-        <div className="h-3/5 w-full bg-gray-200 rounded-2xl flex flex-col px-14 py-8 gap-4">
-          <h5 className="text-gray-600">Q{currentQuestionIndex + 1}</h5>
+        <div className="h-3/5 w-full shadow-lg shadow-secondary rounded-2xl flex flex-col px-14 py-8 gap-4">
+          <h5 className="text-secondary">Q{currentQuestionIndex + 1}</h5>
           <h2 className="text-3xl font-semibold">
             {quizData[currentQuestionIndex]?.question}
           </h2>
@@ -50,14 +50,12 @@ const QuizPage = () => {
               (option, index) => (
                 <span
                   key={index}
-                  className="text-lg p-2 rounded-lg cursor-pointer"
+                  className={`text-lg p-2 rounded-lg cursor-pointer ${
+                    index === selectedAnswers[currentQuestionIndex]
+                      ? "bg-accent "
+                      : ""
+                  }}`}
                   onClick={() => handleSelectAnswer(index)}
-                  style={{
-                    backgroundColor:
-                      index === selectedAnswers[currentQuestionIndex]
-                        ? "#FFFFFF"
-                        : "",
-                  }}
                 >
                   {String.fromCharCode(65 + index)}. {option}
                 </span>
@@ -76,9 +74,9 @@ const QuizPage = () => {
               onClick={handleNextQuestion}
               className={`${
                 currentQuestionIndex === quizData.length - 1
-                  ? "bg-emerald-700"
-                  : "bg-secondary"
-              } rounded-lg px-10 py-2 text-white`}
+                  ? "bg-primary"
+                  : "bg-emerald-500"
+              } rounded-lg px-10 py-2`}
             >
               {currentQuestionIndex === quizData.length - 1
                 ? "Submit"

@@ -15,17 +15,10 @@ export default function useQuizState(genre: QuizCategorieType) {
   const router = useRouter();
 
   useEffect(() => {
-    const fetchQuizData = async () => {
-      try {
-        const data = await fetchQuiz(genre as unknown as QuizCategorieType);
-
-        setQuizData(data);
-      } catch (error) {
-        console.error("Error fetching quiz data:", error);
-      }
-    };
-
-    fetchQuizData();
+    fetchQuiz(genre).then((data) => {
+      setQuizData(data);
+      setSelectedAnswers(new Array(data.length).fill(-1));
+    });
   }, []);
 
   useEffect(() => {
@@ -48,6 +41,15 @@ export default function useQuizState(genre: QuizCategorieType) {
       if (timeLeft > 0) {
         setTimeLeft(timeLeft - 1);
       } else {
+        sessionStorage.setItem(
+          "quizResult",
+          JSON.stringify({
+            score: score,
+            genre: genre,
+          })
+        );
+        score > 5 && updateUserPoints(user.uid, score+userDetails.points);
+        router.push("/quiz/result");
         clearInterval(timer);
       }
     }, 1000);

@@ -3,7 +3,6 @@ import { userContext } from "@/app/context/UserContext";
 import getGenreDetails from "@/app/lib/getGenreDetails";
 import { QuizCategorieType } from "@/app/lib/types";
 import Link from "next/link";
-import { useEffect } from "react";
 
 const Result = () => {
   const { user, userDetails, updateUserDetails } = userContext();
@@ -20,8 +19,10 @@ const Result = () => {
 
   return (
     <div
-      className={`h-3/5 w-3/6 bg-gray-200 border-4 ${
-        passed ? " border-secondary" : "border-red-700"
+      className={`h-3/5 w-3/6  border-4 ${
+        passed
+          ? " border-primary shadow-emerald-500 shadow-lg"
+          : "border-red-800  shadow-red-500 shadow-lg"
       } drop-shadow-lg rounded-2xl flex flex-col items-center justify-between p-14 gap-8`}
     >
       <span className="flex flex-col items-center gap-5">
@@ -41,7 +42,7 @@ const Result = () => {
             <h2 className="text-2xl text-cText">
               You got {data.score} out of 10 Points
             </h2>
-            <h4 className="text-sm text-cText">
+            <h4 className="text-sm text-gray-400">
               Note: Your score won't update until you pass.
             </h4>
           </>
@@ -53,7 +54,7 @@ const Result = () => {
             Take another Quiz about {genreDetails?.title}
           </button>
         ) : (
-          <button className=" rounded-lg px-10 py-3 text-white bg-slate-800">
+          <button className=" rounded-lg px-10 py-3 text-black bg-secondary">
             Try again in {genreDetails?.title}
           </button>
         )}

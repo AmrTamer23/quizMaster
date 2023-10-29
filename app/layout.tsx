@@ -9,7 +9,7 @@ const robotoSlab = Roboto_Slab({
 });
 
 export const metadata: Metadata = {
-  title: "Trivia Time",
+  title: "QuizzyLantern",
   description: "Simple and fun trivia game",
 };
 

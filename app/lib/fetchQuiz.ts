@@ -1,4 +1,3 @@
-import { number } from "yup";
 import { QuizCategorieType, QuizQuestion } from "./types";
 import he from "he";
 
@@ -9,6 +8,7 @@ export default async function fetchQuiz(genre: QuizCategorieType) {
     sports: 21,
     geo: 22,
     history: 23,
+
   };
 
   try {

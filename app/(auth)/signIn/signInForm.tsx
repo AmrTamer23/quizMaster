@@ -43,7 +43,7 @@ function SignInForm() {
         onSubmit={formik.handleSubmit}
         className="flex flex-col w-full items-center"
       >
-        <fieldset className="flex flex-col w-4/12 mb-5">
+        <fieldset className="flex flex-col w-4/12 mb-5 gap-2">
           <label htmlFor="email" className="text-lg">
             Email
           </label>
@@ -61,7 +61,7 @@ function SignInForm() {
               <div className="text-red-800">{formik.errors.email}</div>
             )}
         </fieldset>
-        <fieldset className="flex flex-col w-4/12 mb-5">
+        <fieldset className="flex flex-col w-4/12 mb-5 gap-2">
           <label htmlFor="email" className="text-lg ">
             Password
           </label>
@@ -82,7 +82,7 @@ function SignInForm() {
         <button
           type="submit"
           disabled={formik.isSubmitting}
-          className="w-4/12 text-white text-2xl bg-navyBlue rounded-md p-2 mt-4 drop-shadow-xl hover:bg-secondary hover:text-navyBlue"
+          className="w-4/12 text-white text-2xl bg-primary rounded-md p-2 mt-4 drop-shadow-xl hover:bg-secondary hover:text-black"
         >
           Sign In
         </button>
@@ -94,13 +94,13 @@ function SignInForm() {
         </span>
       </form>
       <div className="flex items-center mt-2">
-        <div className="flex-1 h-0.5 bg-cText"></div>
+        <div className="flex-1 h-0.5 bg-accent"></div>
         <span className="px-3 text-xl">OR</span>
-        <div className="flex-1 h-0.5 w-96 bg-cText"></div>
+        <div className="flex-1 h-0.5 w-96 bg-accent"></div>
       </div>
 
       <button
-        className="text-white text-lg bg-[#28313A]  rounded-md py-2 px-5 mt-4 drop-shadow-xl flex justify-center items-center gap-2 w-4/12 hover:bg-gray-100 hover:text-navyBlue hover:border-2 hover:border-blue-500"
+        className="text-black text-lg bg-secondary  rounded-md py-2 px-5 mt-4 drop-shadow-xl flex justify-center items-center gap-2 w-4/12 hover:bg-gray-100 hover:border-2 hover:border-blue-500"
         onClick={async () => {
           await googleSignIn();
         }}

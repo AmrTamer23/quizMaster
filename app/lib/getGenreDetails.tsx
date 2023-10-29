@@ -8,7 +8,7 @@ const getGenreDetails = (selectedGenre: QuizCategorieType) => {
   if (selectedGenre == ("sports" as unknown as QuizCategorieType)) {
     return {
       title: "Sports",
-      icon: <IoBasketballOutline size={80} />,
+      icon: <IoBasketballOutline size={30} />,
     };
   } else if (selectedGenre == ("history" as unknown as QuizCategorieType)) {
     return {
