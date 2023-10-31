@@ -1,12 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Roboto_Slab } from "next/font/google";
+import { GeistSans, GeistMono } from "geist/font";
 import { UserContextProvider } from "./context/UserContext";
-
-const robotoSlab = Roboto_Slab({
-  weight: "500",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "QuizzyLantern",
@@ -20,7 +15,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${robotoSlab.className} antialiased `}>
+      <body className={`${GeistSans.className} antialiased `}>
         <UserContextProvider>{children}</UserContextProvider>
       </body>
     </html>

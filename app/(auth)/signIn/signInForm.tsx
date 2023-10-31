@@ -29,8 +29,12 @@ function SignInForm() {
         .min(8, "Must be 8 characters or more")
         .required("Required"),
     }),
-    onSubmit: (values) => {
-      signInWithPassword(values.email, values.password);
+    onSubmit: async (values) => {
+      Promise.resolve(setLoading(true)).then(async () => {
+        await signInWithPassword(values.email, values.password);
+        Cookies.set("loggedIn", "true");
+        router.push("/dashboard");
+      });
     },
   });
 

@@ -15,11 +15,26 @@ export default function useQuizState(genre: QuizCategorieType) {
   const router = useRouter();
 
   useEffect(() => {
-    fetchQuiz(genre).then((data) => {
-      setQuizData(data);
-      setSelectedAnswers(new Array(data.length).fill(-1));
-    });
-  }, []);
+    let isMounted = true;
+  
+    const fetchData = async () => {
+      try {
+        const data = await fetchQuiz(genre);
+        if (isMounted) {
+          setQuizData(data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    fetchData();
+  
+    return () => {
+      isMounted = false;
+    };
+  }, [genre]);
+  
 
   useEffect(() => {
     let newScore = 0;
