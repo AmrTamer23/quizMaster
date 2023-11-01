@@ -17,9 +17,11 @@ const quizQuestion = ({
 }) => {
   return (
     <div className="h-3/5 w-full shadow-lg shadow-secondary rounded-2xl flex flex-col px-14 py-8 gap-4">
-      <h5 className="text-secondary">Q{currentQuestionIndex + 1}</h5>
+      <h5 className="text-secondary text-lg font-light">
+        Q {currentQuestionIndex + 1}
+      </h5>
 
-      <h2 className="text-3xl font-semibold">
+      <h2 className="text-4xl font-semibold">
         {quizData[currentQuestionIndex]?.question}
       </h2>
 
@@ -28,7 +30,7 @@ const quizQuestion = ({
           (option, index) => (
             <span
               key={index}
-              className={`text-lg p-2 rounded-lg cursor-pointer ${
+              className={`text-xl p-2 rounded-lg cursor-pointer ${
                 index === selectedAnswers[currentQuestionIndex]
                   ? "bg-accent "
                   : ""
@@ -50,10 +52,10 @@ const quizQuestion = ({
         </button>
         <button
           onClick={handleNextQuestion}
-          className={`${
+          className={` ${
             currentQuestionIndex === quizData.length - 1
               ? "bg-primary"
-              : "bg-emerald-500"
+              : "bg-emerald-500 text-gray-700"
           } rounded-lg px-10 py-2`}
         >
           {currentQuestionIndex === quizData.length - 1

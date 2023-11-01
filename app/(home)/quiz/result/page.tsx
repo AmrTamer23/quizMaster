@@ -19,7 +19,7 @@ const Result = () => {
 
   return (
     <div
-      className={`h-3/5 w-3/6  border-4 ${
+      className={`h-3/5 w-4/6  border-4 ${
         passed
           ? " border-primary shadow-emerald-500 shadow-lg"
           : "border-red-800  shadow-red-500 shadow-lg"
@@ -28,7 +28,7 @@ const Result = () => {
       <span className="flex flex-col items-center gap-5">
         {data.score > 5 ? (
           <>
-            <h1 className="text-4xl">Congratulations !</h1>
+            <h1 className="text-5xl">Congratulations !</h1>
             <h2 className="text-2xl text-cText">
               You got {data.score} out of 10 Points
             </h2>
@@ -50,7 +50,7 @@ const Result = () => {
       </span>
       <span className="flex flex-col items-center gap-5">
         {passed ? (
-          <button className=" rounded-lg px-10 py-3 text-white bg-secondary">
+          <button className=" rounded-lg px-10 py-3 text-black font-medium bg-secondary">
             Take another Quiz about {genreDetails?.title}
           </button>
         ) : (

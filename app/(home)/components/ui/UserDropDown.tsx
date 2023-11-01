@@ -49,7 +49,7 @@ export default function UserDropDown({
                   }}
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm cursor-pointer"
+                    "block px-4 py-2 text-lg font-medium cursor-pointer"
                   )}
                 >
                   Points: {userDetails.points}
@@ -61,8 +61,8 @@ export default function UserDropDown({
                 <button
                   onClick={logOut}
                   className={classNames(
-                    active ? "bg-red-100 text-gray-900" : "text-gray-700",
-                    "block w-full px-4 py-2 text-left text-sm"
+                    active ? "bg-red-200 text-gray-900" : "text-gray-700",
+                    "block w-full px-4 py-2 text-left text-lg bg-red-100"
                   )}
                 >
                   Sign out

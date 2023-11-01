@@ -24,7 +24,7 @@ const QuizPage = () => {
   const progress = (currentQuestionIndex / 10) * 100;
 
   return (
-    <div className="flex flex-col justify-center items-center w-full h-full lg:px-96">
+    <div className="flex flex-col justify-center items-center w-full h-full lg:px-80">
       <span className="flex justify-between items-center w-11/12 mb-5">
         <span className="flex items-center gap-3 text-2xl">
           {genreDetails?.icon} {`${genreDetails?.title} Quiz`}

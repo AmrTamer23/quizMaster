@@ -13,6 +13,10 @@ const config: Config = {
         'secondary': '#B8DBD9',
         'accent':'#687a8d'
        },
+       fontFamily: {
+        sans: ['var(--font-geist-sans)'],
+        mono: ['var(--font-geist-mono)'],
+      },
       },
   },
   plugins: [],

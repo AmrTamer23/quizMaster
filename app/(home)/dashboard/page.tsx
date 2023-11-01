@@ -37,7 +37,7 @@ function Dashboard() {
   ];
   return (
     <>
-      <h1 className="text-3xl lg:text-5xl  h-1/5 flex items-end my-9">
+      <h1 className="text-3xl lg:text-6xl  h-1/5 flex items-end my-9">
         Start a New Quiz
       </h1>
       <div className="grid grid-col-1 lg:grid-cols-2 gap-5  w-full h-full lg:px-72 lg:mb-16 ">
@@ -48,7 +48,7 @@ function Dashboard() {
             className="item bg-secondary hover:bg-accent cursor-pointer rounded-3xl flex flex-col gap-2 justify-center items-center lg:h-4/5 w-3/6 place-self-center py-7 "
           >
             {genre.icon}
-            <h4 className="text-black text-2xl">{genre.title}</h4>
+            <h4 className="text-black text-2xl font-semibold">{genre.title}</h4>
           </div>
         ))}
       </div>

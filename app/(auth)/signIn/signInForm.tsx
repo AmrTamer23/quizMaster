@@ -95,13 +95,13 @@ function SignInForm() {
         </span>
       </form>
       <div className="flex items-center mt-2">
-        <div className="flex-1 h-0.5 bg-accent"></div>
-        <span className="px-3 text-xl">OR</span>
-        <div className="flex-1 h-0.5 w-96 bg-accent"></div>
+        <div className="flex-1 h-0.5 bg-white"></div>
+        <span className="px-3 text-xl ">OR</span>
+        <div className="flex-1 h-0.5 w-96 bg-white"></div>
       </div>
 
       <button
-        className="text-black text-lg bg-secondary  rounded-md py-2 px-5 mt-4 drop-shadow-xl flex justify-center items-center gap-2 w-4/12 hover:bg-gray-100 hover:border-2 hover:border-blue-500"
+        className="text-black text-lg bg-secondary  rounded-md py-2 px-5 mt-4 flex justify-center items-center gap-2 w-4/12 hover:bg-gray-100 hover:border-x-4 hover:border-blue-500"
         onClick={async () => {
           Promise.resolve(setLoading(true)).then(async () => {
             await googleSignIn().then(() => {
