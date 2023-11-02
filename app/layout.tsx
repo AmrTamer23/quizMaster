@@ -15,7 +15,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${GeistSans.className} antialiased  select-none`}>
+      <body
+        className={`${GeistSans.className} antialiased  select-none bg-night-200`}
+      >
         <UserContextProvider>{children}</UserContextProvider>
       </body>
     </html>

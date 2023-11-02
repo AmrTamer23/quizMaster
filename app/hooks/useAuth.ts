@@ -1,17 +1,18 @@
-
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword ,
   GoogleAuthProvider,
   signInWithPopup,
   signOut,
+  onAuthStateChanged,
 } from "firebase/auth";
 import { auth } from "../lib/firebase";
 import useFirestore from "./useFirestore";
-import { Dispatch } from "react";
+import { Dispatch, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import 'react-toastify/dist/ReactToastify.css';
+import { DocumentData } from "firebase/firestore";
 
 
 const useAuth = ({
@@ -87,6 +88,19 @@ const useAuth = ({
         console.log(error);
       });
   };
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+        Cookies.set("loggedIn", "true");
+      } else {
+        setUser(null);
+      }
+    });
+    return unsubscribe;
+  }, [user]);
+
 
   return {
     signUp,

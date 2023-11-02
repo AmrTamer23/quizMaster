@@ -1,10 +1,7 @@
-import { doc, setDoc, getDoc, updateDoc, collection } from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc, collection, DocumentData } from "firebase/firestore";
 import { db } from "../lib/firebase";
 
 const useFirestore = () => {
-
-  
-
 
   const setUsername = async (uid: string, username: string) => {
     const docRef = doc(collection(db, "users"), uid);
@@ -43,6 +40,8 @@ const useFirestore = () => {
       points: points,
     });
   };
+
+  
 
   const isDocExists = async (uid: string) => {
     const docRef = doc(db, "users", uid);

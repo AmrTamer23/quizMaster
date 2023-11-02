@@ -1,4 +1,5 @@
 import { QuizQuestion } from "@/app/lib/types";
+import clsx from "clsx";
 
 const quizQuestion = ({
   quizData,
@@ -16,7 +17,7 @@ const quizQuestion = ({
   handleNextQuestion: () => void;
 }) => {
   return (
-    <div className="h-3/5 w-full shadow-lg shadow-secondary rounded-2xl flex flex-col px-14 py-8 gap-4">
+    <div className="h-5/6 w-full bg-dark_green-200  shadow-lg shadow-secondary rounded-2xl flex flex-col px-14 py-8 gap-4">
       <h5 className="text-secondary text-lg font-light">
         Q {currentQuestionIndex + 1}
       </h5>
@@ -25,16 +26,16 @@ const quizQuestion = ({
         {quizData[currentQuestionIndex]?.question}
       </h2>
 
-      <section className="mt-5 flex flex-col gap-5">
+      <section className="mt-5 flex flex-col gap-8">
         {quizData[currentQuestionIndex]?.incorrect_answers.map(
           (option, index) => (
             <span
               key={index}
-              className={`text-xl p-2 rounded-lg cursor-pointer ${
-                index === selectedAnswers[currentQuestionIndex]
-                  ? "bg-accent "
-                  : ""
-              }}`}
+              className={clsx(
+                "text-2xl p-2 rounded-lg cursor-pointer",
+                index === selectedAnswers[currentQuestionIndex] &&
+                  "bg-myrtle_green-700 text-black"
+              )}
               onClick={() => handleSelectAnswer(index)}
             >
               {String.fromCharCode(65 + index)}. {option}

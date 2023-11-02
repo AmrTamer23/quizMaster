@@ -11,7 +11,7 @@ export default function useQuizState(genre: QuizCategorieType) {
   const [score, setScore] = useState(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [timeLeft, setTimeLeft] = useState(300);
-  const { user, userDetails, updateUserPoints } = userContext();
+  const { user, userDetails, updatePoints } = userContext();
   const router = useRouter();
 
   useEffect(() => {
@@ -63,7 +63,10 @@ export default function useQuizState(genre: QuizCategorieType) {
             genre: genre,
           })
         );
-        score > 5 && updateUserPoints(user.uid, score+userDetails.points);
+          
+        if (score > 5) {
+          updatePoints( score + userDetails.points);
+        }
         router.push("/quiz/result");
         clearInterval(timer);
       }
@@ -93,7 +96,10 @@ export default function useQuizState(genre: QuizCategorieType) {
                 genre: genre,
               })
             );
-            score > 5 && updateUserPoints(user.uid, score+userDetails.points);
+                   
+          if (score > 5) {
+            updatePoints( score);
+          }
             router.push("/quiz/result");
             return;
           }

@@ -8,8 +8,7 @@ export type userDetailsType = {
 export type UserContextType = {
     user: any;
     userDetails: userDetailsType;
-    updateUserPoints: (uid: string, points: number) => void;
-    updateUserDetails: () => void;
+    updatePoints: (points: number) => void;
     signUp: (email: string, password: string, userName: string) => Promise<string>;
     signInWithPassword: (email: string, password: string) => Promise<void>;
     googleSignIn: () => Promise<void>;

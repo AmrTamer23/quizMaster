@@ -1,8 +1,5 @@
 "use client";
 import { useContext, createContext, useState, useEffect, useMemo } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../lib/firebase";
-import { DocumentData } from "firebase/firestore/lite";
 import { UserContextType, userDetailsType } from "../lib/types";
 import useAuth from "../hooks/useAuth";
 import useFirestore from "../hooks/useFirestore";
@@ -14,8 +11,7 @@ const UserContext = createContext<UserContextType>({
     points: 0,
     userName: "",
   },
-  updateUserPoints: () => {},
-  updateUserDetails: () => {},
+  updatePoints: (points: number) => {},
   signUp: () => Promise.resolve(""),
   signInWithPassword: () => Promise.resolve(),
   googleSignIn: () => Promise.resolve(),
@@ -39,36 +35,25 @@ export const UserContextProvider = ({
   });
   const { getUserDetails, updateUserPoints } = useFirestore();
 
-  const updateUserDetails = async () => {
-    getUserDetails(user.uid).then((data: DocumentData | false) => {
-      if (data !== false) {
-        setUserDetails(data as userDetailsType);
-      }
-    });
-  };
-
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user);
-        getUserDetails(user.uid).then((data: DocumentData | false) => {
-          if (data !== false) {
-            setUserDetails(data as userDetailsType);
-          }
-        });
-      } else {
-        setUser(null);
-      }
-    });
-    return unsubscribe;
+    if (user) {
+      getUserDetails(user.uid).then((res: any) => {
+        setUserDetails(res);
+      });
+    }
   }, [user]);
+
+  const updatePoints = (points: number) => {
+    points = points + userDetails.points;
+    updateUserPoints(user.uid, points);
+    setUserDetails((prev) => ({ ...prev, points }));
+  };
 
   const value = useMemo(
     () => ({
       user,
       userDetails,
-      updateUserPoints,
-      updateUserDetails,
+      updatePoints,
       signUp,
       signInWithPassword,
       googleSignIn,
