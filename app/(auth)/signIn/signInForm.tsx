@@ -8,6 +8,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
+import { ToastContainer, toast } from "react-toastify";
 
 function SignInForm() {
   const { signInWithPassword, googleSignIn } = userContext();
@@ -30,9 +31,18 @@ function SignInForm() {
     }),
     onSubmit: async (values) => {
       Promise.resolve(setLoading(true)).then(async () => {
-        await signInWithPassword(values.email, values.password);
-        Cookies.set("loggedIn", "true");
-        router.push("/dashboard");
+        const isLogged = await signInWithPassword(
+          values.email,
+          values.password
+        );
+        if (isLogged) {
+          router.push("/dashboard");
+        } else {
+          setLoading(false);
+          toast.error("Invalid email or password", {
+            position: "top-right",
+          });
+        }
       });
     },
   });
@@ -112,6 +122,7 @@ function SignInForm() {
       >
         Continue With <FcGoogle size={25} />
       </button>
+      <ToastContainer />
     </div>
   ) : (
     <span className="loader"></span>

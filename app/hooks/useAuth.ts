@@ -1,6 +1,6 @@
 import {
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword ,
+  signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
   signOut,
@@ -11,31 +11,33 @@ import useFirestore from "./useFirestore";
 import { Dispatch, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import { DocumentData } from "firebase/firestore";
 
-
-const useAuth = ({
-  user,
-  setUser,
-}: {
-  user: any;
-  setUser: Dispatch<any>;
-}) => {
-  const { initUserPoints, updateUserPoints,setUsername, isDocExists } = useFirestore();
+const useAuth = ({ user, setUser }: { user: any; setUser: Dispatch<any> }) => {
+  const { initUserPoints, updateUserPoints, setUsername, isDocExists } =
+    useFirestore();
 
   const router = useRouter();
- 
-  const signUp = async (email: string, password: string, userName: string): Promise<string> => {
+
+  const signUp = async (
+    email: string,
+    password: string,
+    userName: string
+  ): Promise<string> => {
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-  
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
       if (userCredential.user) {
         await setUsername(userCredential.user.uid, userName);
         await initUserPoints(userCredential.user.uid);
-        return 'success';
+        return "success";
       }
-     return 'Something went wrong!';
+      return "Something went wrong!";
     } catch (error: any) {
       console.error(error);
       return error.message;
@@ -46,16 +48,15 @@ const useAuth = ({
     try {
       await signInWithEmailAndPassword(auth, email, password).then((result) => {
         setUser(result.user);
-      })
+      });
       Cookies.set("loggedIn", "true");
-      
+      if (user && !isDocExists(user.uid)) {
+        initUserPoints(user.uid);
+      }
+      return true;
     } catch (error) {
       console.log(error);
-    }
-
-    if (user && !isDocExists(user.uid)) {
-      
-      initUserPoints(user.uid);
+      return false;
     }
   };
 
@@ -65,7 +66,7 @@ const useAuth = ({
       .then((result) => {
         setUser(result.user);
         Cookies.set("loggedIn", "true");
-        
+
         console.log("User ID:", result.user.uid);
       })
       .catch((error) => {
@@ -77,7 +78,7 @@ const useAuth = ({
     }
   };
 
-  const logOut = async() => {
+  const logOut = async () => {
     await signOut(auth)
       .then(() => {
         setUser(null);
@@ -100,7 +101,6 @@ const useAuth = ({
     });
     return unsubscribe;
   }, [user]);
-
 
   return {
     signUp,
