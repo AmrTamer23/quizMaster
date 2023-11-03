@@ -6,7 +6,6 @@ import { FcGoogle } from "react-icons/fc";
 import { userContext } from "@/app/context/UserContext";
 import { useState } from "react";
 import Image from "next/image";
-import Spinner from "@/assets/Spinner.gif";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 
@@ -115,7 +114,7 @@ function SignInForm() {
       </button>
     </div>
   ) : (
-    <Image src={Spinner} alt="Spinner" width={50} height={50} />
+    <span className="loader"></span>
   );
 }
 export default SignInForm;

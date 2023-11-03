@@ -18,11 +18,6 @@ const Result = () => {
 
   const router = useRouter();
 
-  const routeToQuiz = (category: string = data.genre) => {
-    const pathname = `/quiz?category=${category}`;
-    router.push(pathname);
-  };
-
   return (
     <div
       className={`h-4/5 w-3/6 border-4 ${
@@ -55,14 +50,14 @@ const Result = () => {
         )}
       </span>
       <span className="flex flex-col items-center gap-5">
-        <button
-          className="rounded-lg px-10 py-3 text-black bg-secondary text-lg font-medium"
-          onClick={() => routeToQuiz()}
-        >
-          {passed
-            ? `Take another Quiz about ${genreDetails?.title}`
-            : `Try again in ${genreDetails?.title}`}
-        </button>
+        <Link href={`/quiz?category=${data.genre}`}>
+          <button className="rounded-lg px-10 py-3 text-black bg-secondary text-lg font-medium">
+            {passed
+              ? `Take another Quiz about ${genreDetails?.title}`
+              : `Try again in ${genreDetails?.title}`}
+          </button>
+        </Link>
+
         <Link href={"/dashboard"}>
           <p className="text-lg underline cursor-pointer">Back To Dashboard</p>
         </Link>

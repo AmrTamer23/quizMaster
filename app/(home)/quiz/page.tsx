@@ -1,11 +1,10 @@
 "use client";
-import React, { Suspense, useEffect, lazy } from "react";
+import React, { Suspense, lazy } from "react";
 import { useSearchParams } from "next/navigation";
 import { formatTime } from "@/app/lib/utils";
 import useQuizState from "@/app/hooks/useQuizState";
 import getGenreDetails from "@/app/lib/getGenreDetails";
 import { QuizCategorieType } from "@/app/lib/types";
-
 const QuizQuestion = lazy(() => import("./quizQuestion"));
 
 const QuizPage = () => {
