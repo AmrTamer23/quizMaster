@@ -4,7 +4,7 @@ import { GeistSans, GeistMono } from "geist/font";
 import { UserContextProvider } from "./context/UserContext";
 
 export const metadata: Metadata = {
-  title: "QuizzyLantern",
+  title: "QuizMaster",
   description: "Simple and fun trivia game",
 };
 

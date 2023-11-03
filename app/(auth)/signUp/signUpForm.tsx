@@ -115,7 +115,7 @@ const SignUpForm = () => {
         <button
           type="submit"
           disabled={formik.isSubmitting}
-          className="w-4/12 text-white text-2xl bg-navyBlue rounded-md p-2 mt-4 drop-shadow-xl hover:bg-secondary hover:text-navyBlue"
+          className="w-4/12 text-white text-2xl bg-navyBlue rounded-md p-2 mt-4 drop-shadow-xl bg-primary hover:text-black hover:bg-secondary hover:text-navyBlue"
         >
           Sign Up
         </button>
