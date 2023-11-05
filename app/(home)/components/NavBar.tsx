@@ -23,8 +23,8 @@ export default function NavBar() {
         className="flex items-center gap-1"
         onClick={() => router.push("/dashboard")}
       >
-        <Image src={"/logo.svg"} alt="logo" width={90} height={90} />
-        <h3 className="text-3xl font-semibold hidden lg:block">QuizMaster</h3>
+        <Image src={"/logo.svg"} alt="logo" width={70} height={70} />
+        <h3 className="text-2xl font-semibold hidden lg:block">QuizMaster</h3>
       </span>
 
       <UserDropDownMenu
@@ -39,14 +39,14 @@ export default function NavBar() {
                   : `https://ui-avatars.com/api/?name=${userDetails.userName}&background=random&color=fff`
               }
               alt="Avatar"
-              width={50}
+              width={40}
               height={10}
               className="rounded-full h-fit bg-black "
             />
-            <h3 className="text-2xl font-medium">
+            <h3 className="text-xl font-medium">
               {user.displayName ? user.displayName : userDetails.userName}
             </h3>
-            <MdKeyboardArrowDown size={40} />
+            <MdKeyboardArrowDown size={35} />
           </span>
         }
       />
