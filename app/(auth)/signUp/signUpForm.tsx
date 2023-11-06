@@ -121,7 +121,10 @@ const SignUpForm = () => {
         </button>
         <span className="my-5">
           Already have an account?{" "}
-          <Link href="/signIn" className="text-secondary cursor-pointer">
+          <Link
+            href="/signIn"
+            className="dark:text-secondary text-dark_green-600 font-medium cursor-pointer"
+          >
             Sign In
           </Link>
         </span>

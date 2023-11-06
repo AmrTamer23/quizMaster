@@ -17,7 +17,7 @@ const quizQuestion = ({
   handleNextQuestion: () => void;
 }) => {
   return (
-    <div className="h-5/6 w-full bg-dark_green-200  shadow-lg shadow-secondary rounded-2xl flex flex-col px-14 py-8 gap-4">
+    <div className="h-5/6 w-full dark:bg-dark_green-200 text-white bg-dark_green-500 shadow-lg dark:shadow-secondary shadow-night-400 rounded-2xl flex flex-col px-14 py-8 gap-4">
       <h5 className="text-secondary text-lg font-light">
         Q {currentQuestionIndex + 1}
       </h5>
@@ -47,17 +47,18 @@ const quizQuestion = ({
         <button
           onClick={handlePreviousQuestion}
           disabled={currentQuestionIndex === 0}
-          className="bg-gray-600 rounded-lg px-10 py-2 text-white disabled:bg-gray-400 disabled:cursor-not-allowed"
+          className="bg-gray-700 rounded-lg px-10 py-2 text-white disabled:cursor-not-allowed"
         >
           Previous Question
         </button>
         <button
           onClick={handleNextQuestion}
-          className={` ${
+          className={clsx(
+            "rounded-lg px-10 py-2",
             currentQuestionIndex === quizData.length - 1
               ? "bg-primary"
-              : "bg-emerald-500 text-gray-700"
-          } rounded-lg px-10 py-2`}
+              : "bg-myrtle_green-400 text-whiteSmoke"
+          )}
         >
           {currentQuestionIndex === quizData.length - 1
             ? "Submit"

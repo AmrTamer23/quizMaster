@@ -1,6 +1,7 @@
 "use client";
 import { ReactNode, Fragment, useEffect } from "react";
 import { Menu, Transition } from "@headlessui/react";
+import { useTheme } from "next-themes";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -15,6 +16,7 @@ export default function UserDropDown({
   logOut: () => void;
   points: number;
 }) {
+  const { theme, setTheme } = useTheme();
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -45,6 +47,22 @@ export default function UserDropDown({
                 >
                   Points: {points}
                 </span>
+              )}
+            </Menu.Item>
+            <Menu.Item>
+              {({ active }) => (
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setTheme(theme === "dark" ? "light" : "dark");
+                  }}
+                  className={classNames(
+                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                    "block px-4 py-2 text-lg font-medium cursor-pointer"
+                  )}
+                >
+                  {theme === "dark" ? "Dark Mode" : "Light Mode"}
+                </button>
               )}
             </Menu.Item>
             <Menu.Item>

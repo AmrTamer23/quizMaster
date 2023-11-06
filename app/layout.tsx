@@ -1,7 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { GeistSans, GeistMono } from "geist/font";
-import { UserContextProvider } from "./context/UserContext";
+import { GeistSans } from "geist/font";
+import Providers from "./providers";
 
 export const metadata: Metadata = {
   title: "QuizMaster",
@@ -16,9 +16,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${GeistSans.className} antialiased  select-none bg-night-200`}
+        className={`${GeistSans.className} antialiased  select-none dark:bg-night-200 dark:text-whiteSmoke bg-mintGreen text-black bg-opacity-5`}
       >
-        <UserContextProvider>{children}</UserContextProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

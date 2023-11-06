@@ -9,6 +9,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import { ToastContainer, toast } from "react-toastify";
+import Spinner from "@/app/components/Spinner";
 
 function SignInForm() {
   const { signInWithPassword, googleSignIn } = userContext();
@@ -96,21 +97,24 @@ function SignInForm() {
         >
           Sign In
         </button>
-        <span className="mt-2">
+        <span className="mt-4">
           Don't have an account?{" "}
-          <Link href="/signUp" className="text-secondary cursor-pointer">
+          <Link
+            href="/signUp"
+            className="dark:text-secondary text-dark_green-600 font-medium cursor-pointer"
+          >
             Sign Up Now
           </Link>
         </span>
       </form>
       <div className="flex items-center mt-2">
-        <div className="flex-1 h-0.5 bg-white"></div>
+        <div className="flex-1 h-0.5 dark:bg-white bg-midnight_green-200"></div>
         <span className="px-3 text-xl ">OR</span>
-        <div className="flex-1 h-0.5 w-96 bg-white"></div>
+        <div className="flex-1 h-0.5 w-96 dark:bg-white bg-midnight_green-200"></div>
       </div>
 
       <button
-        className="text-black text-lg bg-secondary  rounded-md py-2 px-5 mt-4 flex justify-center items-center gap-2 w-4/12 hover:bg-gray-100 hover:border-x-4 hover:border-blue-500"
+        className="text-black text-lg dark:bg-secondary bg-whiteSmoke border-2 border-night-200  shadow-xl  rounded-md py-2 px-5 mt-4 flex justify-center items-center gap-2 w-4/12 hover:bg-gray-100 hover:border-x-4 hover:border-blue-500"
         onClick={async () => {
           Promise.resolve(setLoading(true)).then(async () => {
             await googleSignIn().then(() => {
@@ -120,12 +124,12 @@ function SignInForm() {
           });
         }}
       >
-        Continue With <FcGoogle size={25} />
+        <FcGoogle size={25} /> Continue With Google
       </button>
       <ToastContainer />
     </div>
   ) : (
-    <span className="loader"></span>
+    <Spinner />
   );
 }
 export default SignInForm;

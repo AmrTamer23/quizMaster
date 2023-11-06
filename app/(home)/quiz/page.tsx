@@ -1,5 +1,5 @@
 "use client";
-import React, { Suspense, lazy } from "react";
+import { Suspense, lazy } from "react";
 import { useSearchParams } from "next/navigation";
 import { formatTime } from "@/app/lib/utils";
 import useQuizState from "@/app/hooks/useQuizState";
@@ -25,10 +25,10 @@ const QuizPage = () => {
   return (
     <div className="flex flex-col justify-center items-center w-full h-full lg:px-80 my-10">
       <span className="flex justify-between items-center w-11/12 mb-5">
-        <span className="flex items-center gap-3 text-2xl">
+        <span className="flex items-center gap-3 text-2xl font-medium">
           {genreDetails?.icon} {`${genreDetails?.title} Quiz`}
         </span>
-        <span className="text-2xl self-end">
+        <span className="text-2xl self-end font-light">
           Time Left : {formatTime(timeLeft)}
         </span>
       </span>

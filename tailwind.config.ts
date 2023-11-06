@@ -12,6 +12,8 @@ const config: Config = {
         primary: "#04724D",
         secondary: "#B8DBD9",
         accent: "#687a8d",
+        whiteSmoke: "#F5F5F5",
+        mintGreen: "#DEFFF2",
         midnight_green: {
           DEFAULT: "#104f55",
           100: "#031011",
@@ -79,6 +81,7 @@ const config: Config = {
       },
     },
   },
+  darkMode: "class",
   plugins: [],
 };
 export default config;

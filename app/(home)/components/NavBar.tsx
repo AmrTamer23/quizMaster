@@ -3,14 +3,17 @@ import { userContext } from "@/app/context/UserContext";
 import Image from "next/image";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import UserDropDownMenu from "./ui/UserDropDown";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
+import clsx from "clsx";
 
 export default function NavBar() {
   const { user, userDetails, logOut } = userContext();
   const router = useRouter();
-
+  const pathName = usePathname();
   const [points, setPoints] = useState(userDetails.points);
+  const { theme } = useTheme();
 
   useEffect(() => {
     setPoints(userDetails.points);
@@ -18,10 +21,19 @@ export default function NavBar() {
   }, [userDetails.points]);
 
   return (
-    <nav className="flex justify-between p-3 items-center shadow-zinc-100 shadow-sm">
+    <nav
+      className={clsx(
+        "flex justify-between p-3 items-center ",
+        theme === "dark"
+          ? "shadow-sm shadow-mintGreen"
+          : "shadow-md shadow-night-400"
+      )}
+    >
       <span
         className="flex items-center gap-1"
-        onClick={() => router.push("/dashboard")}
+        onClick={() => {
+          pathName !== "/dashboard" && router.push("/dashboard");
+        }}
       >
         <Image src={"/logo.svg"} alt="logo" width={70} height={70} />
         <h3 className="text-2xl font-semibold hidden lg:block">QuizMaster</h3>
