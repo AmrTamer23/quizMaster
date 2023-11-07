@@ -2,10 +2,13 @@
 import clsx from "clsx";
 import { infinity } from "ldrs";
 import { useTheme } from "next-themes";
+import { useEffect } from "react";
 
 export default function Spinner() {
   const { theme } = useTheme();
-  infinity.register();
+  useEffect(() => {
+    infinity.register();
+  }, []);
   return (
     <l-infinity
       size="55"
