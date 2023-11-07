@@ -1,13 +1,15 @@
-"use client";
 import clsx from "clsx";
-import { infinity } from "ldrs";
 import { useTheme } from "next-themes";
 import { useEffect } from "react";
 
 export default function Spinner() {
   const { theme } = useTheme();
   useEffect(() => {
-    infinity.register();
+    async function getSpinner() {
+      const { infinity } = await import("ldrs");
+      infinity.register();
+    }
+    getSpinner();
   }, []);
   return (
     <l-infinity
