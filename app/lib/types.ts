@@ -14,7 +14,7 @@ export type UserContextType = {
     userName: string
   ) => Promise<string>;
   signInWithPassword: (email: string, password: string) => Promise<boolean>;
-  googleSignIn: () => Promise<void>;
+  googleSignIn: () => Promise<boolean>;
   logOut: () => void;
 };
 

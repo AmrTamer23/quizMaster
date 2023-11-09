@@ -61,23 +61,27 @@ const useAuth = ({ user, setUser }: { user: any; setUser: Dispatch<any> }) => {
   };
 
   const googleSignIn = async () => {
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        setUser(result.user);
+    try {
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+
+      const user = result.user;
+      if (user) {
+        if (!(await isDocExists(user.uid))) {
+          await initUserPoints(user.uid);
+        }
+
         Cookies.set("loggedIn", "true");
-
-        console.log("User ID:", result.user.uid);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    if (user && !isDocExists(user.uid)) {
-      initUserPoints(user.uid);
+        return true;
+      } else {
+        console.error("User information not available.");
+        return false;
+      }
+    } catch (error) {
+      console.error("An error occurred during Google Sign-In:", error);
+      return false;
     }
   };
-
   const logOut = async () => {
     await signOut(auth)
       .then(() => {

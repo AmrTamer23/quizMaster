@@ -14,7 +14,7 @@ const UserContext = createContext<UserContextType>({
   updatePoints: (points: number) => {},
   signUp: () => Promise.resolve(""),
   signInWithPassword: () => Promise.resolve(false),
-  googleSignIn: () => Promise.resolve(),
+  googleSignIn: () => Promise.resolve(false),
   logOut: () => {},
 });
 
