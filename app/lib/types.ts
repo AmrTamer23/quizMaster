@@ -13,11 +13,7 @@ export type userDetailsType = {
 export type UserContextType = {
   user: any;
   userDetails: userDetailsType;
-  updatePoints: (
-    totalPoints: number,
-    genre: QuizGenreType,
-    points: number
-  ) => void;
+  updatePoints: (genre: QuizGenreType, points: number) => void;
   signUp: (
     email: string,
     password: string,

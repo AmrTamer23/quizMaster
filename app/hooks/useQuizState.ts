@@ -65,7 +65,7 @@ export default function useQuizState(genre: QuizGenreType) {
           );
 
           if (score > 5) {
-            updatePoints(score + userDetails.points, genre, score);
+            updatePoints(genre, score);
           }
           router.push("/quiz/result");
           clearInterval(timer);
@@ -98,7 +98,7 @@ export default function useQuizState(genre: QuizGenreType) {
         );
 
         if (score > 5) {
-          updatePoints(score + userDetails.points, genre, score);
+          updatePoints(genre, score);
         }
         router.push("/quiz/result");
         return;

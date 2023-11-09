@@ -74,12 +74,12 @@ const useFirestore = () => {
     uid: string,
     totalPoints: number,
     genre: QuizGenreType,
-    points: number
+    genrePoints: number
   ) => {
     const docRef = doc(db, "users", uid);
     await updateDoc(docRef, {
       points: totalPoints,
-      [`pointsByGenre.${genre}`]: points,
+      [`pointsByGenre.${genre}`]: genrePoints,
     });
   };
 

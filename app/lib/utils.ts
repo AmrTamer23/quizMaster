@@ -8,9 +8,9 @@ export function formatTime(seconds: number): string {
 }
 
 export function difficultyDecision(genrePoints: number) {
-  if (genrePoints < 10) {
+  if (genrePoints < 30) {
     return "easy";
-  } else if (genrePoints < 20) {
+  } else if (genrePoints < 70) {
     return "medium";
   } else {
     return "hard";

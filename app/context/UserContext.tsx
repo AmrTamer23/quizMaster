@@ -17,7 +17,7 @@ const UserContext = createContext<UserContextType>({
     },
     userName: "",
   },
-  updatePoints: (points: number) => {},
+  updatePoints: (genre: QuizGenreType, points: number) => {},
   signUp: () => Promise.resolve(""),
   signInWithPassword: () => Promise.resolve(false),
   googleSignIn: () => Promise.resolve(false),
@@ -55,19 +55,18 @@ export const UserContextProvider = ({
     }
   }, [user]);
 
-  const updatePoints = (
-    totalPoints: number,
-    genre: QuizGenreType,
-    points: number
-  ) => {
-    totalPoints = totalPoints + userDetails.points;
-    updateUserPoints(user.uid, totalPoints, genre, points);
+  const updatePoints = (genre: QuizGenreType, points: number) => {
+    const totalPoints = userDetails.points + points;
+    const genrePoints = userDetails.pointsByGenre[genre] + points;
+
+    updateUserPoints(user.uid, totalPoints, genre, genrePoints);
+
     setUserDetails((prev) => ({
       ...prev,
       points: totalPoints,
       pointsByGenre: {
         ...prev.pointsByGenre,
-        [genre]: prev.pointsByGenre[genre] + points,
+        [genre]: genrePoints,
       },
     }));
   };
