@@ -4,7 +4,6 @@ import { GiEarthAfricaEurope } from "react-icons/gi";
 import { IoBasketballOutline } from "react-icons/io5";
 import { MdOutlineHistoryEdu } from "react-icons/md";
 import { useRouter } from "next/navigation";
-import { PiBooks } from "react-icons/pi";
 
 function Dashboard() {
   const router = useRouter();

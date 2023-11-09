@@ -5,7 +5,9 @@ import { formatTime } from "@/app/lib/utils";
 import useQuizState from "@/app/hooks/useQuizState";
 import getGenreDetails from "@/app/lib/getGenreDetails";
 import { QuizCategorieType } from "@/app/lib/types";
-const QuizQuestion = lazy(() => import("./quizQuestion"));
+import Spinner from "@/app/components/Spinner";
+import dynamic from "next/dynamic";
+const QuizQuestion = dynamic(() => import("./quizQuestion"), { ssr: false });
 
 const QuizPage = () => {
   const currGenre = useSearchParams().get("category");
@@ -38,7 +40,7 @@ const QuizPage = () => {
           style={{ width: `${progress}%` }}
         ></span>
       </div>
-      <Suspense fallback={<p className="text-7xl text-white">Loading......</p>}>
+      <Suspense fallback={<Spinner />}>
         <QuizQuestion
           quizData={quizData}
           currentQuestionIndex={currentQuestionIndex}

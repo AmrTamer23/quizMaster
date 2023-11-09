@@ -83,7 +83,7 @@ export default function UserDropDown({
                 <button
                   onClick={logOut}
                   className={classNames(
-                    active ? clsx(isDark ? "bg-red-800" : "bg-red-200") : "",
+                    active ? clsx(isDark ? "bg-red-700" : "bg-red-200") : "",
                     clsx(
                       "block w-full px-4 py-2 text-left text-lg ",
                       isDark ? "bg-red-950" : "bg-red-100"

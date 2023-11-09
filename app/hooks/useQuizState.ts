@@ -1,9 +1,9 @@
-'use client';
+"use client";
 import { useState, useEffect } from "react";
 import { QuizCategorieType, QuizQuestion } from "../lib/types";
 import fetchQuiz from "../lib/fetchQuiz";
 import { userContext } from "../context/UserContext";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function useQuizState(genre: QuizCategorieType) {
   const [quizData, setQuizData] = useState<QuizQuestion[]>([]);
@@ -11,12 +11,12 @@ export default function useQuizState(genre: QuizCategorieType) {
   const [score, setScore] = useState(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [timeLeft, setTimeLeft] = useState(300);
-  const { user, userDetails, updatePoints } = userContext();
+  const { userDetails, updatePoints } = userContext();
   const router = useRouter();
 
   useEffect(() => {
     let isMounted = true;
-  
+
     const fetchData = async () => {
       try {
         const data = await fetchQuiz(genre);
@@ -27,14 +27,13 @@ export default function useQuizState(genre: QuizCategorieType) {
         console.log(error);
       }
     };
-  
+
     fetchData();
-  
+
     return () => {
       isMounted = false;
     };
   }, [genre]);
-  
 
   useEffect(() => {
     let newScore = 0;
@@ -49,32 +48,31 @@ export default function useQuizState(genre: QuizCategorieType) {
     setScore(newScore);
   }, [selectedAnswers]);
 
- 
- 
   useEffect(() => {
-    const timer = setInterval(() => {
-      if (timeLeft > 0) {
-        setTimeLeft(timeLeft - 1);
-      } else {
-        sessionStorage.setItem(
-          "quizResult",
-          JSON.stringify({
-            score: score,
-            genre: genre,
-          })
-        );
-          
-        if (score > 5) {
-          updatePoints( score + userDetails.points);
+    if (quizData) {
+      const timer = setInterval(() => {
+        if (timeLeft > 0) {
+          setTimeLeft(timeLeft - 1);
+        } else {
+          sessionStorage.setItem(
+            "quizResult",
+            JSON.stringify({
+              score: score,
+              genre: genre,
+            })
+          );
+
+          if (score > 5) {
+            updatePoints(score + userDetails.points);
+          }
+          router.push("/quiz/result");
+          clearInterval(timer);
         }
-        router.push("/quiz/result");
-        clearInterval(timer);
-      }
-    }, 1000);
+      }, 1000);
 
-    return () => clearInterval(timer);
-  }, [timeLeft]);
-
+      return () => clearInterval(timer);
+    }
+  }, [timeLeft, quizData]);
 
   return {
     quizData,
@@ -83,30 +81,30 @@ export default function useQuizState(genre: QuizCategorieType) {
     currentQuestionIndex,
     timeLeft,
     handleSelectAnswer: (index: number) => {
-        const newSelectedAnswers = [...selectedAnswers];
-        newSelectedAnswers[currentQuestionIndex] = index;
-        setSelectedAnswers(newSelectedAnswers);
+      const newSelectedAnswers = [...selectedAnswers];
+      newSelectedAnswers[currentQuestionIndex] = index;
+      setSelectedAnswers(newSelectedAnswers);
     },
     handleNextQuestion: () => {
-        if (currentQuestionIndex === quizData.length - 1) {
-            sessionStorage.setItem(
-              "quizResult",
-              JSON.stringify({
-                score: score,
-                genre: genre,
-              })
-            );
-                   
-          if (score > 5) {
-            updatePoints( score);
-          }
-            router.push("/quiz/result");
-            return;
-          }
-          setCurrentQuestionIndex(currentQuestionIndex + 1);
+      if (currentQuestionIndex === quizData.length - 1) {
+        sessionStorage.setItem(
+          "quizResult",
+          JSON.stringify({
+            score: score,
+            genre: genre,
+          })
+        );
+
+        if (score > 5) {
+          updatePoints(score);
+        }
+        router.push("/quiz/result");
+        return;
+      }
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
     },
     handlePreviousQuestion: () => {
-        setCurrentQuestionIndex(currentQuestionIndex - 1);
+      setCurrentQuestionIndex(currentQuestionIndex - 1);
     },
   };
 }
