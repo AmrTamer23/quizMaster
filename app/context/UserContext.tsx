@@ -55,13 +55,20 @@ export const UserContextProvider = ({
     }
   }, [user]);
 
-  const updatePoints = (points: number, genre: QuizGenreType) => {
-    points = points + userDetails.points;
-    updateUserPoints(user.uid, points, genre);
+  const updatePoints = (
+    totalPoints: number,
+    genre: QuizGenreType,
+    points: number
+  ) => {
+    totalPoints = totalPoints + userDetails.points;
+    updateUserPoints(user.uid, totalPoints, genre, points);
     setUserDetails((prev) => ({
       ...prev,
-      points,
-      pointsByGenre: { ...prev.pointsByGenre, [genre]: points },
+      points: totalPoints,
+      pointsByGenre: {
+        ...prev.pointsByGenre,
+        [genre]: prev.pointsByGenre[genre] + points,
+      },
     }));
   };
 
