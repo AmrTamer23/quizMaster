@@ -51,7 +51,7 @@ export default function UserDropDown({
                     "block px-4 py-2 text-lg font-medium cursor-pointer"
                   )}
                 >
-                  Points: {points}
+                  Points: {points ? points : 0}
                 </span>
               )}
             </Menu.Item>

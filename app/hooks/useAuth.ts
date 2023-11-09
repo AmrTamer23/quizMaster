@@ -12,11 +12,15 @@ import { Dispatch, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import "react-toastify/dist/ReactToastify.css";
-import { DocumentData } from "firebase/firestore";
 
 const useAuth = ({ user, setUser }: { user: any; setUser: Dispatch<any> }) => {
-  const { initUserPoints, updateUserPoints, setUsername, isDocExists } =
-    useFirestore();
+  const {
+    initUserPoints,
+    updateUserPoints,
+    setUsername,
+    isDocExists,
+    initUserPointsWGoogle,
+  } = useFirestore();
 
   const router = useRouter();
 
@@ -61,27 +65,23 @@ const useAuth = ({ user, setUser }: { user: any; setUser: Dispatch<any> }) => {
   };
 
   const googleSignIn = async () => {
+    const provider = new GoogleAuthProvider();
+
     try {
-      const provider = new GoogleAuthProvider();
-      const result = await signInWithPopup(auth, provider);
+      await signInWithPopup(auth, provider).then(async (result) => {
+        setUser(result.user);
+        console.log("User ID:", result.user.uid);
 
-      const user = result.user;
-      if (user) {
-        if (!(await isDocExists(user.uid))) {
-          await initUserPoints(user.uid);
-        }
-
+        await initUserPointsWGoogle(result.user.uid);
         Cookies.set("loggedIn", "true");
-        return true;
-      } else {
-        console.error("User information not available.");
-        return false;
-      }
+      });
+      return true;
     } catch (error) {
-      console.error("An error occurred during Google Sign-In:", error);
+      console.log(error);
       return false;
     }
   };
+
   const logOut = async () => {
     await signOut(auth)
       .then(() => {

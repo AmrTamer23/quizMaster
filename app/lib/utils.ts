@@ -6,3 +6,13 @@ export function formatTime(seconds: number): string {
 
   return `${minutes}:${formattedSeconds}`;
 }
+
+export function difficultyDecision(genrePoints: number) {
+  if (genrePoints < 10) {
+    return "easy";
+  } else if (genrePoints < 20) {
+    return "medium";
+  } else {
+    return "hard";
+  }
+}

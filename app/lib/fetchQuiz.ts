@@ -1,19 +1,21 @@
-import { QuizCategorieType, QuizQuestion } from "./types";
+import { QuizGenreType, QuizQuestion } from "./types";
 import he from "he";
+import { difficultyDecision } from "./utils";
 
-
-export default async function fetchQuiz(genre: QuizCategorieType) {
-  const genreId: Record<QuizCategorieType, number> = {
+export default async function fetchQuiz(
+  genre: QuizGenreType,
+  difficulty: string
+) {
+  const genreId: Record<QuizGenreType, number> = {
     cs: 18,
     sports: 21,
     geo: 22,
     history: 23,
-
   };
 
   try {
     const response = await fetch(
-      `https://opentdb.com/api.php?amount=10&category=${genreId[genre]}&type=multiple`
+      `https://opentdb.com/api.php?amount=10&category=${genreId[genre]}&difficulty=${difficulty}&type=multiple`
     );
 
     if (!response.ok) {
@@ -33,7 +35,7 @@ export default async function fetchQuiz(genre: QuizCategorieType) {
       question.correct_answer = he.decode(question.correct_answer);
       question.incorrect_answers = [
         ...question.incorrect_answers.map((answer) => he.decode(answer)),
-       question.correct_answer,
+        question.correct_answer,
       ].sort(() => Math.random() - 0.5);
     });
     return quizData;

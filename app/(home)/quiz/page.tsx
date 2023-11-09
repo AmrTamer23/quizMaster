@@ -4,14 +4,14 @@ import { useSearchParams } from "next/navigation";
 import { formatTime } from "@/app/lib/utils";
 import useQuizState from "@/app/hooks/useQuizState";
 import getGenreDetails from "@/app/lib/getGenreDetails";
-import { QuizCategorieType } from "@/app/lib/types";
+import { QuizGenreType } from "@/app/lib/types";
 import Spinner from "@/app/components/Spinner";
 import dynamic from "next/dynamic";
 const QuizQuestion = dynamic(() => import("./quizQuestion"), { ssr: false });
 
 const QuizPage = () => {
-  const currGenre = useSearchParams().get("category");
-  const genreDetails = getGenreDetails(currGenre as QuizCategorieType);
+  const currGenre = useSearchParams().get("genre");
+  const genreDetails = getGenreDetails(currGenre as QuizGenreType);
   const {
     currentQuestionIndex,
     timeLeft,
@@ -20,7 +20,7 @@ const QuizPage = () => {
     selectedAnswers,
     handlePreviousQuestion,
     handleNextQuestion,
-  } = useQuizState(currGenre as QuizCategorieType);
+  } = useQuizState(currGenre as QuizGenreType);
 
   const progress = (currentQuestionIndex / 10) * 100;
 

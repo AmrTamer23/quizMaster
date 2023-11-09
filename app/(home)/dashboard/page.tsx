@@ -8,8 +8,8 @@ import { useRouter } from "next/navigation";
 function Dashboard() {
   const router = useRouter();
 
-  const routeToQuiz = (category: string) => {
-    const pathname = `/quiz?category=${category}`;
+  const routeToQuiz = (genre: string) => {
+    const pathname = `/quiz?genre=${genre}`;
     router.push(pathname);
   };
   const quizGenres = [

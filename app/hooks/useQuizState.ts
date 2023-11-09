@@ -1,11 +1,12 @@
 "use client";
 import { useState, useEffect } from "react";
-import { QuizCategorieType, QuizQuestion } from "../lib/types";
+import { QuizGenreType, QuizQuestion } from "../lib/types";
 import fetchQuiz from "../lib/fetchQuiz";
 import { userContext } from "../context/UserContext";
 import { useRouter } from "next/navigation";
+import { difficultyDecision } from "../lib/utils";
 
-export default function useQuizState(genre: QuizCategorieType) {
+export default function useQuizState(genre: QuizGenreType) {
   const [quizData, setQuizData] = useState<QuizQuestion[]>([]);
   const [selectedAnswers, setSelectedAnswers] = useState<number[]>([]);
   const [score, setScore] = useState(0);
@@ -18,8 +19,9 @@ export default function useQuizState(genre: QuizCategorieType) {
     let isMounted = true;
 
     const fetchData = async () => {
+      const difficulty = difficultyDecision(userDetails.pointsByGenre[genre]);
       try {
-        const data = await fetchQuiz(genre);
+        const data = await fetchQuiz(genre, difficulty);
         if (isMounted) {
           setQuizData(data);
         }
@@ -63,7 +65,7 @@ export default function useQuizState(genre: QuizCategorieType) {
           );
 
           if (score > 5) {
-            updatePoints(score + userDetails.points);
+            updatePoints(score + userDetails.points, genre);
           }
           router.push("/quiz/result");
           clearInterval(timer);
@@ -96,7 +98,7 @@ export default function useQuizState(genre: QuizCategorieType) {
         );
 
         if (score > 5) {
-          updatePoints(score);
+          updatePoints(score, genre);
         }
         router.push("/quiz/result");
         return;

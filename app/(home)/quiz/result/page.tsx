@@ -1,7 +1,7 @@
 "use client";
 import { userContext } from "@/app/context/UserContext";
 import getGenreDetails from "@/app/lib/getGenreDetails";
-import { QuizCategorieType } from "@/app/lib/types";
+import { QuizGenreType } from "@/app/lib/types";
 import clsx from "clsx";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -13,11 +13,9 @@ const Result = () => {
   if (quizData) {
     data = JSON.parse(quizData);
   }
-  const genreDetails = getGenreDetails(data.genre as QuizCategorieType);
+  const genreDetails = getGenreDetails(data.genre as QuizGenreType);
 
   const passed: boolean = data.score > 5 ? true : false;
-
-  const router = useRouter();
 
   return (
     <div
@@ -52,7 +50,7 @@ const Result = () => {
         )}
       </span>
       <span className="flex flex-col items-center gap-5">
-        <Link href={`/quiz?category=${data.genre}`}>
+        <Link href={`/quiz?genre=${data.genre}`}>
           <button className="rounded-lg px-10 py-3 dark:text-black dark:bg-secondary bg-myrtle_green-500 text-whiteSmoke text-lg font-medium">
             {passed
               ? `Take another Quiz about ${genreDetails?.title}`

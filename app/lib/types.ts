@@ -2,12 +2,18 @@ export type userDetailsType = {
   name: string;
   userName?: string;
   points: number;
+  pointsByGenre: {
+    cs: number;
+    geo: number;
+    history: number;
+    sports: number;
+  };
 };
 
 export type UserContextType = {
   user: any;
   userDetails: userDetailsType;
-  updatePoints: (points: number) => void;
+  updatePoints: (points: number, genre: QuizGenreType) => void;
   signUp: (
     email: string,
     password: string,
@@ -18,7 +24,7 @@ export type UserContextType = {
   logOut: () => void;
 };
 
-export type QuizCategorieType = "cs" | "geo" | "history" | "sports";
+export type QuizGenreType = "cs" | "geo" | "history" | "sports";
 
 export type QuizQuestion = {
   category: string;
