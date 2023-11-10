@@ -40,7 +40,7 @@ export default async function fetchQuiz(
     });
     return quizData;
   } catch (error) {
-    console.error("Error fetching quiz data:", error);
+    console.error("error");
     throw error;
   }
 }

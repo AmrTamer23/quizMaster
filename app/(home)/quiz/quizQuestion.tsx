@@ -17,12 +17,12 @@ const quizQuestion = ({
   handleNextQuestion: () => void;
 }) => {
   return (
-    <div className="h-5/6 w-full dark:bg-dark_green-200 text-white bg-dark_green-500/80 shadow-lg dark:shadow-secondary shadow-night-400 rounded-2xl flex flex-col px-14 py-8 gap-4">
+    <div className="md:h-5/6  h-full w-full dark:bg-dark_green-200 text-white bg-dark_green-500/80 md:shadow-lg dark:shadow-secondary shadow-night-400 rounded-2xl flex flex-col px-14 py-8 gap-4">
       <h5 className="text-secondary text-lg font-light">
         Q {currentQuestionIndex + 1}
       </h5>
 
-      <h2 className="text-4xl font-semibold">
+      <h2 className="md:text-4xl text-3xl font-semibold">
         {quizData[currentQuestionIndex]?.question}
       </h2>
 
@@ -43,7 +43,7 @@ const quizQuestion = ({
           )
         )}
       </section>
-      <span className="flex justify-between items-end h-full">
+      <span className="flex justify-between items-end h-full mt-10 md:mt-0 gap-3">
         <button
           onClick={handlePreviousQuestion}
           disabled={currentQuestionIndex === 0}

@@ -17,13 +17,12 @@ export default function NavBar() {
 
   useEffect(() => {
     setPoints(userDetails.points);
-    console.log("userDetails", userDetails);
   }, [userDetails.points]);
 
   return (
     <nav
       className={clsx(
-        "flex justify-between p-3 items-center ",
+        "flex justify-between p-3 items-center mb-10 md:mb-0",
         theme === "dark"
           ? "shadow-sm shadow-mintGreen"
           : "shadow-md shadow-night-400"

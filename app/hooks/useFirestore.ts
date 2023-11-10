@@ -45,13 +45,13 @@ const useFirestore = () => {
           sports: 0,
         },
       });
-      console.log("Document added successfully");
     } catch (e) {
-      console.error("Error adding document: ", e);
+      console.error("error");
     }
   };
 
   const initUserPointsWGoogle = async (uid: any) => {
+    if (await isDocExists(uid)) return;
     try {
       const docRef = doc(collection(db, "users"), uid);
       await setDoc(docRef, {
@@ -64,9 +64,8 @@ const useFirestore = () => {
           sports: 0,
         },
       });
-      console.log("Document added successfully");
     } catch (e) {
-      console.error("Error adding document: ", e);
+      console.error("error");
     }
   };
 

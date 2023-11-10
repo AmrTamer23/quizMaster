@@ -6,8 +6,7 @@ import useQuizState from "@/app/hooks/useQuizState";
 import getGenreDetails from "@/app/lib/getGenreDetails";
 import { QuizGenreType } from "@/app/lib/types";
 import Spinner from "@/app/components/Spinner";
-import dynamic from "next/dynamic";
-const QuizQuestion = dynamic(() => import("./quizQuestion"), { ssr: false });
+const QuizQuestion = lazy(() => import("./quizQuestion"));
 
 const QuizPage = () => {
   const currGenre = useSearchParams().get("genre");

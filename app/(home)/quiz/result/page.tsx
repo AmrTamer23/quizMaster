@@ -4,7 +4,6 @@ import getGenreDetails from "@/app/lib/getGenreDetails";
 import { QuizGenreType } from "@/app/lib/types";
 import clsx from "clsx";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 const Result = () => {
   const { userDetails } = userContext();
@@ -20,7 +19,7 @@ const Result = () => {
   return (
     <div
       className={clsx(
-        "h-4/5 w-3/6 border-4 drop-shadow-lg rounded-2xl flex flex-col items-center justify-between p-14 gap-8 dark:bg-inherit",
+        "h-4/5 w-11/12 md:w-3/6 border-4 drop-shadow-lg rounded-2xl flex flex-col items-center justify-between md:p-14 py-8 px-5 gap-8 dark:bg-inherit",
         passed
           ? " border-primary shadow-emerald-500 shadow-lg bg-emerald-50"
           : "border-red-800  shadow-red-500 shadow-lg bg-red-50"
@@ -29,8 +28,8 @@ const Result = () => {
       <span className="flex flex-col items-center gap-5">
         {data.score > 5 ? (
           <>
-            <h1 className="text-5xl">Congratulations !</h1>
-            <h2 className="text-2xl text-cText">
+            <h1 className="md:text-5xl text-4xl">Congratulations !</h1>
+            <h2 className="md:text-3xl text-xl text-cText">
               You got {data.score} out of 10 Points
             </h2>
             <h3 className="text-xl text-cText">
@@ -40,10 +39,10 @@ const Result = () => {
         ) : (
           <>
             <h1 className="text-5xl">Oops !</h1>
-            <h2 className="text-3xl text-cText">
+            <h2 className="md:text-3xl text-xl text-cText">
               You got {data.score} out of 10 Points
             </h2>
-            <h4 className="text-lg dark:text-gray-400 text-gray-600">
+            <h4 className="md:text-lg text-sm dark:text-gray-400 text-gray-600">
               Note: Your score won't update until you pass.
             </h4>
           </>
@@ -51,7 +50,7 @@ const Result = () => {
       </span>
       <span className="flex flex-col items-center gap-5">
         <Link href={`/quiz?genre=${data.genre}`}>
-          <button className="rounded-lg px-10 py-3 dark:text-black dark:bg-secondary bg-myrtle_green-500 text-whiteSmoke text-lg font-medium">
+          <button className="rounded-lg md:px-10 px-4 py-3 dark:text-black dark:bg-secondary bg-myrtle_green-500 text-whiteSmoke md:text-lg font-medium">
             {passed
               ? `Take another Quiz about ${genreDetails?.title}`
               : `Try again in ${genreDetails?.title}`}

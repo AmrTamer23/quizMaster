@@ -19,7 +19,8 @@ export default function useQuizState(genre: QuizGenreType) {
     let isMounted = true;
 
     const fetchData = async () => {
-      const difficulty = difficultyDecision(userDetails.pointsByGenre[genre]);
+      const genrePoints = userDetails.pointsByGenre[genre];
+      const difficulty = difficultyDecision(genrePoints ? genrePoints : 0);
       try {
         const data = await fetchQuiz(genre, difficulty);
         if (isMounted) {

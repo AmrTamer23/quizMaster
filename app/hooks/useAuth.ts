@@ -70,7 +70,6 @@ const useAuth = ({ user, setUser }: { user: any; setUser: Dispatch<any> }) => {
     try {
       await signInWithPopup(auth, provider).then(async (result) => {
         setUser(result.user);
-        console.log("User ID:", result.user.uid);
 
         await initUserPointsWGoogle(result.user.uid);
         Cookies.set("loggedIn", "true");
