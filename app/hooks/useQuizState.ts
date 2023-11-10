@@ -36,7 +36,7 @@ export default function useQuizState(genre: QuizGenreType) {
     return () => {
       isMounted = false;
     };
-  }, [genre]);
+  }, []);
 
   useEffect(() => {
     let newScore = 0;
