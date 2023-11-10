@@ -11,6 +11,8 @@ const SignUpForm = () => {
   const inputFieldsStyle =
     "border-2 border-gray-300 rounded-xl p-3 drop-shadow-xl";
 
+  const fieldSetStyle = "flex flex-col md:w-4/12 w-10/12 mb-5 gap-2";
+
   const { signUp } = userContext();
   const router = useRouter();
 
@@ -57,7 +59,7 @@ const SignUpForm = () => {
         onSubmit={formik.handleSubmit}
         className="flex flex-col w-full items-center"
       >
-        <fieldset className="flex flex-col w-4/12 mb-5">
+        <fieldset className={fieldSetStyle}>
           <label htmlFor="username" className="text-lg">
             Username
           </label>
@@ -76,7 +78,7 @@ const SignUpForm = () => {
               <div className="text-red-800">{formik.errors.username}</div>
             )}
         </fieldset>
-        <fieldset className="flex flex-col w-4/12 mb-5">
+        <fieldset className={fieldSetStyle}>
           <label htmlFor="email" className="text-lg">
             Email
           </label>
@@ -94,7 +96,7 @@ const SignUpForm = () => {
               <div className="text-red-800">{formik.errors.email}</div>
             )}
         </fieldset>
-        <fieldset className="flex flex-col w-4/12 mb-5">
+        <fieldset className={fieldSetStyle}>
           <label htmlFor="email" className="text-lg ">
             Password
           </label>
@@ -115,7 +117,7 @@ const SignUpForm = () => {
         <button
           type="submit"
           disabled={formik.isSubmitting}
-          className="w-4/12 text-white text-2xl bg-navyBlue rounded-md p-2 mt-4 drop-shadow-xl bg-primary hover:text-black hover:bg-secondary hover:text-navyBlue"
+          className="md:w-4/12 w-10/12 text-white text-2xl bg-navyBlue rounded-md p-2 mt-4 drop-shadow-xl bg-primary hover:text-black hover:bg-secondary hover:text-navyBlue"
         >
           Sign Up
         </button>

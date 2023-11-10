@@ -19,6 +19,8 @@ function SignInForm() {
   const inputFieldsStyle =
     "border-2 border-gray-300 rounded-xl p-3 drop-shadow-xl";
 
+  const fieldSetStyle = "flex flex-col md:w-4/12 w-10/12 mb-5 gap-2";
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -54,7 +56,7 @@ function SignInForm() {
         onSubmit={formik.handleSubmit}
         className="flex flex-col w-full items-center"
       >
-        <fieldset className="flex flex-col w-4/12 mb-5 gap-2">
+        <fieldset className={fieldSetStyle}>
           <label htmlFor="email" className="text-lg">
             Email
           </label>
@@ -72,7 +74,7 @@ function SignInForm() {
               <div className="text-red-800">{formik.errors.email}</div>
             )}
         </fieldset>
-        <fieldset className="flex flex-col w-4/12 mb-5 gap-2">
+        <fieldset className={fieldSetStyle}>
           <label htmlFor="email" className="text-lg ">
             Password
           </label>
@@ -93,7 +95,7 @@ function SignInForm() {
         <button
           type="submit"
           disabled={formik.isSubmitting}
-          className="w-4/12 text-white text-2xl bg-primary rounded-md p-2 mt-4 drop-shadow-xl hover:bg-secondary hover:text-black"
+          className="md:w-4/12 w-10/12 text-white text-2xl bg-primary rounded-md p-2 mt-4 drop-shadow-xl hover:bg-secondary hover:text-black"
         >
           Sign In
         </button>
@@ -107,14 +109,14 @@ function SignInForm() {
           </Link>
         </span>
       </form>
-      <div className="flex items-center mt-2">
-        <div className="flex-1 h-0.5 dark:bg-white bg-midnight_green-200"></div>
+      <div className="flex items-center justify-center mt-2 w-full">
+        <div className="md:flex-1 w-1/3 h-0.5 dark:bg-white bg-midnight_green-200"></div>
         <span className="px-3 text-xl ">OR</span>
-        <div className="flex-1 h-0.5 w-96 dark:bg-white bg-midnight_green-200"></div>
+        <div className="md:flex-1 h-0.5 w-1/3 dark:bg-white bg-midnight_green-200"></div>
       </div>
 
       <button
-        className="text-black text-lg dark:bg-secondary bg-whiteSmoke border-2 border-night-200  shadow-xl  rounded-md py-2 px-5 mt-4 flex justify-center items-center gap-2 w-4/12 hover:bg-gray-100 hover:border-x-4 hover:border-blue-500"
+        className="text-black text-lg dark:bg-secondary bg-whiteSmoke border-2 border-night-200  shadow-xl  rounded-md py-2 px-5 mt-4 flex justify-center items-center gap-2 md:w-4/12 w-10/12 hover:bg-gray-100 hover:border-x-4 hover:border-blue-500"
         onClick={async () => {
           Promise.resolve(setLoading(true)).then(async () => {
             const isLogged = await googleSignIn();

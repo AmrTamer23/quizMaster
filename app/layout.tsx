@@ -4,6 +4,7 @@ import { GeistSans } from "geist/font";
 import Providers from "./providers";
 
 export const metadata: Metadata = {
+  icons: "./logo.svg",
   title: "QuizMaster",
   description: "Simple and fun trivia game",
 };

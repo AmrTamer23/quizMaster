@@ -4,11 +4,6 @@ import { Menu, Transition } from "@headlessui/react";
 import { useTheme } from "next-themes";
 import { MdDarkMode } from "react-icons/md";
 import { IoSunnySharp } from "react-icons/io5";
-import clsx from "clsx";
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
-}
 
 export default function UserDropDown({
   children,
@@ -39,60 +34,38 @@ export default function UserDropDown({
         <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white dark:bg-myrtle_green-200 dark:text-whiteSmoke shadow-sm dark:shadow-whiteSmoke shadow-night-200 ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1">
             <Menu.Item>
-              {({ active }) => (
-                <span
-                  onClick={(e) => {
-                    e.preventDefault();
-                  }}
-                  className={classNames(
-                    active
-                      ? clsx(isDark ? "bg-myrtle_green-400" : "bg-gray-100")
-                      : "",
-                    "block px-4 py-2 text-lg font-medium cursor-pointer"
-                  )}
-                >
-                  Points: {points ? points : 0}
-                </span>
-              )}
+              <span
+                onClick={(e) => {
+                  e.preventDefault();
+                }}
+                className={
+                  "block px-4 py-2 text-lg font-semibold cursor-pointer  hover:dark:bg-myrtle_green-400 hover:bg-gray-100"
+                }
+              >
+                Points: {points ? points : 0}
+              </span>
             </Menu.Item>
             <Menu.Item>
-              {({ active }) => (
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setTheme(isDark ? "light" : "dark");
-                  }}
-                  className={classNames(
-                    active
-                      ? clsx(isDark ? "bg-myrtle_green-400" : "bg-gray-100")
-                      : "",
-                    "px-4 py-2 text-lg font-medium cursor-pointer w-full flex justify-between items-center"
-                  )}
-                >
-                  {isDark ? "Dark Mode" : "Light Mode"}
-                  {isDark ? (
-                    <MdDarkMode size={25} />
-                  ) : (
-                    <IoSunnySharp size={25} />
-                  )}
-                </button>
-              )}
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  setTheme(isDark ? "light" : "dark");
+                }}
+                className={
+                  "px-4 py-2 text-lg  cursor-pointer w-full flex justify-between items-center hover:dark:bg-myrtle_green-400 hover:bg-gray-100"
+                }
+              >
+                {isDark ? "Dark Mode" : "Light Mode"}
+                {isDark ? <MdDarkMode size={25} /> : <IoSunnySharp size={25} />}
+              </button>
             </Menu.Item>
             <Menu.Item>
-              {({ active }) => (
-                <button
-                  onClick={logOut}
-                  className={classNames(
-                    active ? clsx(isDark ? "bg-red-700" : "bg-red-200") : "",
-                    clsx(
-                      "block w-full px-4 py-2 text-left text-lg ",
-                      isDark ? "bg-red-950" : "bg-red-100"
-                    )
-                  )}
-                >
-                  Sign out
-                </button>
-              )}
+              <button
+                onClick={logOut}
+                className="block w-full px-4 py-2 text-left text-lg dark:bg-red-950 hover:dark:bg-red-800 bg-red-100 hover:bg-red-300"
+              >
+                Sign out
+              </button>
             </Menu.Item>
           </div>
         </Menu.Items>
