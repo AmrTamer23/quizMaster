@@ -110,9 +110,9 @@ function SignInForm() {
         </span>
       </form>
       <div className="flex items-center justify-center mt-2 w-full">
-        <div className="md:flex-1 w-1/3 h-0.5 dark:bg-white bg-midnight_green-200"></div>
+        <div className="md:w-2/12 w-1/3 h-0.5 dark:bg-white bg-midnight_green-200"></div>
         <span className="px-3 text-xl ">OR</span>
-        <div className="md:flex-1 h-0.5 w-1/3 dark:bg-white bg-midnight_green-200"></div>
+        <div className="md:w-2/12 h-0.5 w-1/3 dark:bg-white bg-midnight_green-200"></div>
       </div>
 
       <button
