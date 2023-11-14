@@ -12,12 +12,13 @@ const nextConfig = {
       }
     ]
   },
-  rewrites: async () => {
+  redirects: async () => {
     return [
       {
         source: '/',
-        destination: '/dashboard'
-      }
+        destination: '/dashboard',
+        permanent: true,
+      },
     ]
   }
 }
