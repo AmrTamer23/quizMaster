@@ -37,6 +37,8 @@ const QuizQuestion = () => {
           className=" bg-primary h-full absolute"
           style={{ width: `${progress}%` }}
         ></span>
+        /*TODO : Debug the Progress bar on mobile view (and maybe change its
+        color on light mode)*/
       </div>
       <div className="md:h-5/6  h-full w-full dark:bg-dark_green-200 text-white bg-dark_green-500/80 md:shadow-lg dark:shadow-secondary shadow-night-400 rounded-2xl flex flex-col px-14 py-8 gap-4">
         <h5 className="text-secondary text-lg font-light">

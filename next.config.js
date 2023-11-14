@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  
   images: {
+    dangerouslyAllowSVG: true,
     remotePatterns: [
       {
         hostname: 'lh3.googleusercontent.com'
@@ -10,6 +12,14 @@ const nextConfig = {
       }
     ]
   },
+  rewrites: async () => {
+    return [
+      {
+        source: '/',
+        destination: '/dashboard'
+      }
+    ]
+  }
 }
 
 module.exports = nextConfig
