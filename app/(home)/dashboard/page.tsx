@@ -47,7 +47,7 @@ function Dashboard() {
             className="item  bg-cambridge_blue hover:bg-myrtle_green-900 cursor-pointer rounded-3xl flex flex-col gap-2 justify-center items-center lg:h-4/5 w-3/6 place-self-center py-7 "
           >
             {genre.icon}
-            <h4 className="text-black text-2xl font-semibold text-center">
+            <h4 className="text-black text-2xl font-semibold text-center px-2">
               {genre.title}
             </h4>
           </div>

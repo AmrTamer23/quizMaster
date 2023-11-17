@@ -1,14 +1,15 @@
 "use client";
-import { Suspense, lazy } from "react";
 import Spinner from "@/app/components/Spinner";
-const QuizQuestion = lazy(() => import("./QuizQuestion"));
+import dynamic from "next/dynamic";
+
+const QuizQuestion = dynamic(() => import("./QuizQuestion"), {
+  loading: () => <Spinner />,
+});
 
 const QuizPage = () => {
   return (
     <div className="flex flex-col justify-center items-center w-full h-full lg:px-80 my-10">
-      <Suspense fallback={<Spinner />}>
-        <QuizQuestion />
-      </Suspense>
+      <QuizQuestion />
     </div>
   );
 };

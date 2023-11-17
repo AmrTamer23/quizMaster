@@ -1,25 +1,46 @@
 "use client";
-import { ReactNode, Fragment } from "react";
+import Image from "next/image";
+import { Fragment, useEffect, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { useTheme } from "next-themes";
-import { MdDarkMode } from "react-icons/md";
+import { MdDarkMode, MdKeyboardArrowDown } from "react-icons/md";
 import { IoSunnySharp } from "react-icons/io5";
+import { userContext } from "@/app/context/UserContext";
 
-export default function UserDropDown({
-  children,
-  logOut,
-  points,
-}: {
-  children: ReactNode;
-  logOut: () => void;
-  points: number;
-}) {
+export default function UserDropDown({}: {}) {
+  const { user, userDetails, logOut } = userContext();
+  const [points, setPoints] = useState(userDetails.points);
   const { theme, setTheme } = useTheme();
   const isDark = theme === "dark";
+
+  useEffect(() => {
+    setPoints(userDetails.points);
+  }, [userDetails.points]);
+
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
-        <Menu.Button>{children}</Menu.Button>
+        <Menu.Button>
+          <span className="flex gap-3 items-center hover:cursor-pointer relative">
+            {user && (
+              <Image
+                src={
+                  user.photoURL
+                    ? user.photoURL
+                    : `https://ui-avatars.com/api/?name=${userDetails.userName}&background=random&color=fff`
+                }
+                alt="Avatar"
+                width={40}
+                height={10}
+                className="rounded-full h-fit bg-black "
+              />
+            )}
+            <h3 className="text-xl font-medium">
+              {user.displayName ? user.displayName : userDetails.userName}
+            </h3>
+            <MdKeyboardArrowDown size={35} />
+          </span>
+        </Menu.Button>
       </div>
 
       <Transition
