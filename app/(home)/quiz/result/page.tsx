@@ -1,14 +1,13 @@
 "use client";
-import { Suspense, lazy } from "react";
-import Loading from "../loading";
-const QuizResult = lazy(() => import("./QuizResult"));
+import Spinner from "@/app/components/Spinner";
+import dynamic from "next/dynamic";
+
+const QuizResult = dynamic(() => import("./QuizResult"), {
+  loading: () => <Spinner />,
+});
 
 const Result = () => {
-  return (
-    <Suspense fallback={<Loading />}>
-      <QuizResult />
-    </Suspense>
-  );
+  return <QuizResult />;
 };
 
 export default Result;
