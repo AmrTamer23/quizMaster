@@ -21,29 +21,45 @@ export default function useQuizState(genre: QuizGenreType) {
   const { userDetails, updatePoints } = userContext();
   const router = useRouter();
 
-  useEffect(function () {
-    async function fetchQuizData() {
-      try {
-        const response = await fetch(
-          `https://opentdb.com/api.php?amount=10&category=${
-            genreId[genre]
-          }&difficulty=${difficultyDecision(
-            userDetails.pointsByGenre[genre]
-          )}&type=multiple`
-        );
-        const data = await response.json();
+  useEffect(
+    function () {
+      async function fetchQuizData() {
+        try {
+          const response = await fetch(
+            `https://opentdb.com/api.php?amount=10&category=${
+              genreId[genre]
+            }&difficulty=${difficultyDecision(
+              userDetails.pointsByGenre[genre]
+            )}&type=multiple`
+          );
 
-        const quizData: QuizQuestion[] = data.results;
+          if (!response.ok) {
+            throw new Error(`${response.status}`);
+          }
 
-        if (quizData) {
-          setQuizData(reformattedQuizData(quizData));
+          const data = await response.json();
+
+          const quizData: QuizQuestion[] = data.results;
+
+          if (quizData) {
+            setQuizData(reformattedQuizData(quizData));
+          }
+        } catch (error) {
+          const errorCode =
+            error instanceof Error ? error.message : "Unknown Error";
+
+          if (errorCode === "429") {
+            setTimeout(() => {
+              console.log("retrying");
+              fetchQuizData();
+            }, 500);
+          }
         }
-      } catch (error) {
-        console.log(error);
       }
-    }
-    fetchQuizData();
-  }, []);
+      fetchQuizData();
+    },
+    [genre]
+  );
 
   useEffect(() => {
     let newScore = 0;
@@ -59,7 +75,7 @@ export default function useQuizState(genre: QuizGenreType) {
   }, [selectedAnswers]);
 
   useEffect(() => {
-    if (quizData) {
+    if (quizData.length > 0) {
       const timer = setInterval(() => {
         if (timeLeft > 0) {
           setTimeLeft(timeLeft - 1);
