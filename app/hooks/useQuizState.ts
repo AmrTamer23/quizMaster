@@ -1,10 +1,16 @@
 "use client";
 import { useState, useEffect } from "react";
 import { QuizGenreType, QuizQuestion } from "../lib/types";
-import fetchQuiz from "../lib/fetchQuiz";
 import { userContext } from "../context/UserContext";
 import { useRouter } from "next/navigation";
-import { difficultyDecision } from "../lib/utils";
+import { difficultyDecision, reformattedQuizData } from "../lib/utils";
+
+const genreId: Record<QuizGenreType, number> = {
+  cs: 18,
+  sports: 21,
+  geo: 22,
+  history: 23,
+};
 
 export default function useQuizState(genre: QuizGenreType) {
   const [quizData, setQuizData] = useState<QuizQuestion[]>([]);
@@ -15,27 +21,28 @@ export default function useQuizState(genre: QuizGenreType) {
   const { userDetails, updatePoints } = userContext();
   const router = useRouter();
 
-  useEffect(() => {
-    let isMounted = true;
-
-    const fetchData = async () => {
-      const genrePoints = userDetails.pointsByGenre[genre];
-      const difficulty = difficultyDecision(genrePoints ? genrePoints : 0);
+  useEffect(function () {
+    async function fetchQuizData() {
       try {
-        const data = await fetchQuiz(genre, difficulty);
-        if (isMounted) {
-          setQuizData(data);
+        const response = await fetch(
+          `https://opentdb.com/api.php?amount=10&category=${
+            genreId[genre]
+          }&difficulty=${difficultyDecision(
+            userDetails.pointsByGenre[genre]
+          )}&type=multiple`
+        );
+        const data = await response.json();
+
+        const quizData: QuizQuestion[] = data.results;
+
+        if (quizData) {
+          setQuizData(reformattedQuizData(quizData));
         }
       } catch (error) {
         console.log(error);
       }
-    };
-
-    fetchData();
-
-    return () => {
-      isMounted = false;
-    };
+    }
+    fetchQuizData();
   }, []);
 
   useEffect(() => {
@@ -77,37 +84,43 @@ export default function useQuizState(genre: QuizGenreType) {
     }
   }, [timeLeft, quizData]);
 
+  const handleSelectAnswer = (index: number) => {
+    const newSelectedAnswers = [...selectedAnswers];
+    newSelectedAnswers[currentQuestionIndex] = index;
+    setSelectedAnswers(newSelectedAnswers);
+  };
+
+  const handleNextQuestion = () => {
+    if (currentQuestionIndex === quizData.length - 1) {
+      sessionStorage.setItem(
+        "quizResult",
+        JSON.stringify({
+          score: score,
+          genre: genre,
+        })
+      );
+
+      if (score > 5) {
+        updatePoints(genre, score);
+      }
+      router.push("/quiz/result");
+      return;
+    }
+    setCurrentQuestionIndex(currentQuestionIndex + 1);
+  };
+
+  const handlePreviousQuestion = () => {
+    setCurrentQuestionIndex(currentQuestionIndex - 1);
+  };
+
   return {
     quizData,
     selectedAnswers,
     score,
     currentQuestionIndex,
     timeLeft,
-    handleSelectAnswer: (index: number) => {
-      const newSelectedAnswers = [...selectedAnswers];
-      newSelectedAnswers[currentQuestionIndex] = index;
-      setSelectedAnswers(newSelectedAnswers);
-    },
-    handleNextQuestion: () => {
-      if (currentQuestionIndex === quizData.length - 1) {
-        sessionStorage.setItem(
-          "quizResult",
-          JSON.stringify({
-            score: score,
-            genre: genre,
-          })
-        );
-
-        if (score > 5) {
-          updatePoints(genre, score);
-        }
-        router.push("/quiz/result");
-        return;
-      }
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-    },
-    handlePreviousQuestion: () => {
-      setCurrentQuestionIndex(currentQuestionIndex - 1);
-    },
+    handleSelectAnswer,
+    handleNextQuestion,
+    handlePreviousQuestion,
   };
 }
