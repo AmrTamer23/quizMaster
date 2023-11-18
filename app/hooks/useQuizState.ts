@@ -4,6 +4,7 @@ import { QuizGenreType, QuizQuestion } from "../lib/types";
 import { userContext } from "../context/UserContext";
 import { useRouter } from "next/navigation";
 import { difficultyDecision, reformattedQuizData } from "../lib/utils";
+import useSessionStorage from "./useSessionStorage";
 
 const genreId: Record<QuizGenreType, number> = {
   cs: 18,
@@ -19,7 +20,16 @@ export default function useQuizState(genre: QuizGenreType) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [timeLeft, setTimeLeft] = useState(300);
   const { userDetails, updatePoints } = userContext();
+  const { setResult } = useSessionStorage();
   const router = useRouter();
+
+  function endQuiz() {
+    if (score > 5) {
+      updatePoints(genre, score);
+    }
+    setResult(score, genre);
+    router.push("/quiz/result");
+  }
 
   useEffect(
     function () {
@@ -80,18 +90,7 @@ export default function useQuizState(genre: QuizGenreType) {
         if (timeLeft > 0) {
           setTimeLeft(timeLeft - 1);
         } else {
-          sessionStorage.setItem(
-            "quizResult",
-            JSON.stringify({
-              score: score,
-              genre: genre,
-            })
-          );
-
-          if (score > 5) {
-            updatePoints(genre, score);
-          }
-          router.push("/quiz/result");
+          endQuiz();
           clearInterval(timer);
         }
       }, 1000);
@@ -108,18 +107,7 @@ export default function useQuizState(genre: QuizGenreType) {
 
   const handleNextQuestion = () => {
     if (currentQuestionIndex === quizData.length - 1) {
-      sessionStorage.setItem(
-        "quizResult",
-        JSON.stringify({
-          score: score,
-          genre: genre,
-        })
-      );
-
-      if (score > 5) {
-        updatePoints(genre, score);
-      }
-      router.push("/quiz/result");
+      endQuiz();
       return;
     }
     setCurrentQuestionIndex(currentQuestionIndex + 1);

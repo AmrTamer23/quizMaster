@@ -1,4 +1,5 @@
 import { userContext } from "@/app/context/UserContext";
+import useSessionStorage from "@/app/hooks/useSessionStorage";
 import getGenreDetails from "@/app/lib/getGenreDetails";
 import { QuizGenreType } from "@/app/lib/types";
 import clsx from "clsx";
@@ -6,13 +7,8 @@ import Link from "next/link";
 
 const QuizResult = () => {
   const { userDetails } = userContext();
-  const quizData = sessionStorage.getItem("quizResult");
-  let data: { score: number; genre: string } = { score: 0, genre: "" };
-  if (quizData) {
-    data = JSON.parse(quizData);
-  }
+  const data = useSessionStorage().getResult();
   const genreDetails = getGenreDetails(data.genre as QuizGenreType);
-
   const passed: boolean = data.score > 5 ? true : false;
 
   return (
