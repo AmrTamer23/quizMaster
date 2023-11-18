@@ -10,7 +10,7 @@ export default function NavBar() {
   const pathName = usePathname();
 
   return (
-    <nav className="h-1/12 flex justify-between p-3 items-center mb-10 md:mb-0 dark:shadow-sm dark:shadow-mintGreen shadow-md shadow-night-400">
+    <nav className=" flex justify-between p-3 items-center dark:shadow-sm dark:shadow-mintGreen shadow-md shadow-night-400">
       <span
         className="flex items-center gap-1"
         onClick={() => {

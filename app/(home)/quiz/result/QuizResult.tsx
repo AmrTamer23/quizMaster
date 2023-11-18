@@ -18,7 +18,7 @@ const QuizResult = () => {
   return (
     <div
       className={clsx(
-        "h-4/5 w-11/12 md:w-3/6 border-4 drop-shadow-lg rounded-2xl flex flex-col items-center justify-between md:p-14 py-8 px-5 gap-8 dark:bg-inherit",
+        "md:h-4/5 min-h-[70dvh] md:w-3/6 border-4 drop-shadow-lg rounded-2xl flex flex-col items-center justify-between md:p-14 py-8 px-5 gap-8 dark:bg-inherit",
         passed
           ? " border-primary shadow-emerald-500 shadow-lg bg-emerald-50"
           : "border-red-800  shadow-red-500 shadow-lg bg-red-50"

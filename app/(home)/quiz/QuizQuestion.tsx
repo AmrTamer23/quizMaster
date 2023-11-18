@@ -24,11 +24,11 @@ const QuizQuestion = () => {
 
   return (
     <>
-      <span className="flex justify-between items-center w-11/12 mb-5">
+      <span className="flex justify-between items-center md:w-11/12 mb-5 gap-5 max-md:mx-2">
         <span className="flex items-center gap-3 text-2xl font-medium">
           {genreDetails?.icon} {`${genreDetails?.title} Quiz`}
         </span>
-        <span className="text-2xl self-end font-light">
+        <span className="text-lg md:text-2xl md:self-end font-semibold">
           Time Left : {formatTime(timeLeft)}
         </span>
       </span>
@@ -38,16 +38,18 @@ const QuizQuestion = () => {
           style={{ width: `${progress}%` }}
         ></span>
       </div>
-      <div className="md:h-5/6  h-full w-full dark:bg-dark_green-200 text-white bg-dark_green-500/80 md:shadow-lg dark:shadow-secondary shadow-night-400 rounded-2xl flex flex-col px-14 py-8 gap-4">
-        <h5 className="text-secondary text-lg font-light">
-          Q {currentQuestionIndex + 1}
-        </h5>
+      <div className="md:h-5/6 h-full w-full dark:bg-dark_green-200 text-white bg-dark_green-500/80 md:shadow-lg dark:shadow-secondary shadow-night-400 rounded-2xl flex flex-col md:px-14 py-8 gap-4">
+        <span className="flex flex-col gap-3 px-5 md:px-0">
+          <h5 className="text-secondary text-lg font-light">
+            Q {currentQuestionIndex + 1}
+          </h5>
 
-        <h2 className="md:text-4xl text-3xl font-semibold">
-          {quizData[currentQuestionIndex]?.question}
-        </h2>
+          <h2 className="md:text-4xl text-3xl font-semibold">
+            {quizData[currentQuestionIndex]?.question}
+          </h2>
+        </span>
 
-        <section className="mt-5 flex flex-col gap-8">
+        <section className="mt-5 flex flex-col gap-8 px-5 md:px-0">
           {quizData[currentQuestionIndex]?.incorrect_answers.map(
             (option, index) => (
               <span
@@ -68,7 +70,7 @@ const QuizQuestion = () => {
           <button
             onClick={handlePreviousQuestion}
             disabled={currentQuestionIndex === 0}
-            className="bg-gray-700 rounded-lg px-10 py-2 text-white disabled:cursor-not-allowed border-2 border-myrtle_green-900"
+            className="bg-gray-700 rounded-lg md:px-10 px-2 py-2 text-white disabled:cursor-not-allowed border-2 border-myrtle_green-900"
           >
             Previous Question
           </button>

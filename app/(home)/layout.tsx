@@ -8,8 +8,11 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     user && (
       <div className="flex flex-col h-screen">
-        <NavBar />
-        <main className="flex flex-col items-center justify-center h-full">
+        <span className="h-1/12">
+          <NavBar />
+        </span>
+
+        <main className="flex flex-col items-center justify-center h-11/12 md:h-full mt-10 ">
           {children}
         </main>
       </div>
