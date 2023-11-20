@@ -1,4 +1,4 @@
-# [Quiz Master](https://www.quizmasterr.vercel.app)
+# Quiz Master
 
 Quiz Master is a Web app for trivial questions.
 
