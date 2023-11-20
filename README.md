@@ -1,4 +1,4 @@
-# <a href="www.quizmasterr.vercel.app" target="_blank"> Quiz Master </a>
+# <a href="https://www.quizmasterr.vercel.app" target="_blank"> Quiz Master </a>
 
 Quiz Master is a Web app for trivial questions.
 
