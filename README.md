@@ -1,4 +1,4 @@
-# Quiz Master
+# [Quiz Master](https://quizmasterr.vercel.app/)
 
 Quiz Master is a Web app for trivial questions.
 
@@ -20,7 +20,7 @@ Quiz Master is a Web app for trivial questions.
 
 ## Deployment
 
-You can visit www.quizmasterr.vercel.app or, run it on your machine by
+You can visit quizmasterr.vercel.app or, run it on your machine by
 ```bash
 npm install
 ```
