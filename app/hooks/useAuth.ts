@@ -68,20 +68,17 @@ const useAuth = ({ user, setUser }: { user: any; setUser: Dispatch<any> }) => {
     const provider = new GoogleAuthProvider();
 
     try {
-      await signInWithPopup(auth, provider)
-        .then(async (result) => {
-          setUser(result.user);
+      await signInWithPopup(auth, provider).then(async (result) => {
+        setUser(result.user);
 
-          await initUserPointsWGoogle(result.user.uid);
-          Cookies.set("loggedIn", "true");
-          return true;
-        })
-        .catch(() => {
-          return false;
-        });
+        await initUserPointsWGoogle(result.user.uid);
+        Cookies.set("loggedIn", "true");
+        return true;
+      });
     } catch (error) {
       return false;
     }
+    return false;
   };
 
   const logOut = async () => {
