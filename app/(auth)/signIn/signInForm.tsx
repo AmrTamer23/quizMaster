@@ -120,8 +120,9 @@ function SignInForm() {
         onClick={async () => {
           Promise.resolve(setLoading(true)).then(async () => {
             const isLogged = await googleSignIn();
+            console.log(isLogged);
             if (isLogged) router.push("/dashboard");
-            else console.log("error");
+            else setLoading(false);
           });
         }}
       >
