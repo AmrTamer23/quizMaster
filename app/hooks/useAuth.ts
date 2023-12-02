@@ -72,13 +72,12 @@ const useAuth = ({ user, setUser }: { user: any; setUser: Dispatch<any> }) => {
         setUser(result.user);
 
         await initUserPointsWGoogle(result.user.uid);
+        router.push("/dashboard");
         Cookies.set("loggedIn", "true");
-        return true;
       });
     } catch (error) {
-      return false;
+      console.log(error);
     }
-    return false;
   };
 
   const logOut = async () => {

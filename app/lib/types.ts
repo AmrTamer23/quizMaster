@@ -20,7 +20,7 @@ export type UserContextType = {
     userName: string
   ) => Promise<string>;
   signInWithPassword: (email: string, password: string) => Promise<boolean>;
-  googleSignIn: () => Promise<boolean>;
+  googleSignIn: () => Promise<void>;
   logOut: () => void;
 };
 

@@ -119,9 +119,9 @@ function SignInForm() {
         className="text-black text-lg dark:bg-secondary bg-whiteSmoke border-2 border-night-200  shadow-xl  rounded-md py-2 px-5 mt-4 flex justify-center items-center gap-2 md:w-4/12 w-10/12 hover:bg-gray-100 hover:border-x-4 hover:border-blue-500"
         onClick={async () => {
           Promise.resolve(setLoading(true)).then(async () => {
-            const isLogged = await googleSignIn();
-            if (isLogged) router.push("/dashboard");
-            else setLoading(false);
+            await googleSignIn().then(() => {
+              setLoading(false);
+            });
           });
         }}
       >
