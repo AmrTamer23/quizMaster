@@ -20,7 +20,7 @@ const UserContext = createContext<UserContextType>({
   updatePoints: (genre: QuizGenreType, points: number) => {},
   signUp: () => Promise.resolve(""),
   signInWithPassword: () => Promise.resolve(false),
-  googleSignIn: () => Promise.resolve(false),
+  googleSignIn: () => Promise.resolve(),
   logOut: () => {},
 });
 
