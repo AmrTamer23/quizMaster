@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 
-const SignUpForm = dynamic(() => import("./signUpForm"));
+const SignUpForm = dynamic(() => import("../signUpForm"));
 
 const SignUp = () => {
   return (

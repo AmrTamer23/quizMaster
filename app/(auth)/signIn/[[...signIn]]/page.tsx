@@ -1,5 +1,5 @@
 "use client";
-import SignInForm from "./signInForm";
+import SignInForm from "../signInForm";
 
 const SignIn = () => {
   return (
