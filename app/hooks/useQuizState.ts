@@ -117,6 +117,10 @@ export default function useQuizState(genre: QuizGenreType) {
     setCurrentQuestionIndex(currentQuestionIndex - 1);
   };
 
+  const goToQuestion = (index: number) => {
+    setCurrentQuestionIndex(index);
+  };
+
   return {
     quizData,
     selectedAnswers,
@@ -126,5 +130,6 @@ export default function useQuizState(genre: QuizGenreType) {
     handleSelectAnswer,
     handleNextQuestion,
     handlePreviousQuestion,
+    goToQuestion,
   };
 }
