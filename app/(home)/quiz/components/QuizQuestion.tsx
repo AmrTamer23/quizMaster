@@ -1,15 +1,30 @@
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/app/components/ui/tooltip";
 import useQuizState from "@/app/hooks/useQuizState";
 import getGenreDetails from "@/app/lib/getGenreDetails";
 import { QuizGenreType } from "@/app/lib/types";
 import { formatTime } from "@/app/lib/utils";
 import clsx from "clsx";
 import { useSearchParams } from "next/navigation";
+import { FaRegFlag } from "react-icons/fa";
+import { FaFlag } from "react-icons/fa";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/app/components/ui/tooltip";
+import { useState } from "react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/app/components/ui/alert-dialog";
+import QuizFooter from "./ui/QuizFooter";
 
 const QuizQuestion = () => {
   const currGenre = useSearchParams().get("genre");
@@ -29,6 +44,16 @@ const QuizQuestion = () => {
 
   const progress = (currentQuestionIndex / 10) * 100;
 
+  const [isFlagged, setIsFlagged] = useState<boolean[]>([]);
+
+  const handleFlagQuestion = (index: number) => {
+    setIsFlagged((prev) => {
+      const newState = [...prev];
+      newState[index] = !prev[index];
+      return newState;
+    });
+  };
+
   return (
     <>
       <span className="flex justify-between items-center md:w-11/12 mb-5 gap-5 max-md:mx-2">
@@ -47,9 +72,33 @@ const QuizQuestion = () => {
       </div>
       <div className="md:h-5/6 h-full w-full dark:bg-dark_green-200 text-white bg-dark_green-500/80 md:shadow-lg dark:shadow-secondary shadow-night-400 rounded-2xl flex flex-col md:px-14 py-8 gap-4">
         <span className="flex flex-col gap-3 px-5 md:px-0">
-          <h5 className="text-secondary text-lg font-light">
-            Q {currentQuestionIndex + 1}
-          </h5>
+          <span className="flex justify-between">
+            <h5 className="text-secondary text-lg font-light">
+              Q {currentQuestionIndex + 1}
+            </h5>
+
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <button
+                    className="text-secondary text-lg font-light"
+                    onClick={() => {
+                      handleFlagQuestion(currentQuestionIndex);
+                    }}
+                  >
+                    {isFlagged[currentQuestionIndex] ? (
+                      <FaFlag />
+                    ) : (
+                      <FaRegFlag />
+                    )}
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent className="bg-whiteSmoke dark:bg-night-500 text-lg">
+                  <div>Flag This Question</div>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </span>
 
           <h2 className="md:text-4xl text-3xl font-semibold">
             {quizData[currentQuestionIndex]?.question}
@@ -73,53 +122,13 @@ const QuizQuestion = () => {
             )
           )}
         </section>
-        <span className="flex justify-between items-end h-full mt-10 md:mt-0 gap-3">
-          <TooltipProvider delayDuration={0}>
-            <Tooltip>
-              <TooltipTrigger>
-                <button
-                  onClick={handlePreviousQuestion}
-                  disabled={currentQuestionIndex === 0}
-                  className="bg-gray-700 rounded-lg md:px-10 px-2 py-2 text-white disabled:cursor-not-allowed border-2 border-myrtle_green-900"
-                >
-                  Previous Question
-                </button>
-              </TooltipTrigger>
-              <TooltipContent className="bg-night-500">
-                <div className="flex gap-5">
-                  {[...Array(10)].map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => goToQuestion(index)}
-                      className={clsx(
-                        "rounded-full w-8 h-8 border-2 border-myrtle_green-900",
-                        index === currentQuestionIndex
-                          ? "bg-myrtle_green-700 text-black"
-                          : "bg-night-500 text-white"
-                      )}
-                    >
-                      {index + 1}
-                    </button>
-                  ))}
-                </div>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-
-          <button
-            onClick={handleNextQuestion}
-            className={clsx(
-              "rounded-lg px-10 py-2 border-2 border-myrtle_green-900",
-              currentQuestionIndex === quizData.length - 1
-                ? "bg-primary"
-                : "bg-myrtle_green-400 text-whiteSmoke"
-            )}
-          >
-            {currentQuestionIndex === quizData.length - 1
-              ? "Submit"
-              : "Next Question"}
-          </button>
-        </span>
+        <QuizFooter
+          handlePreviousQuestion={handlePreviousQuestion}
+          currentQuestionIndex={currentQuestionIndex}
+          goToQuestion={goToQuestion}
+          handleNextQuestion={handleNextQuestion}
+          isFlagged={isFlagged}
+        />
       </div>
     </>
   );

@@ -3,7 +3,7 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import dynamic from "next/dynamic";
 
-const QuizQuestion = dynamic(() => import("./QuizQuestion"), {
+const QuizQuestion = dynamic(() => import("./components/QuizQuestion"), {
   loading: () => (
     <Skeleton
       height={"70vh"}
