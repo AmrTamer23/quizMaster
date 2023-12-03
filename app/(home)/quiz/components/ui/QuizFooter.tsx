@@ -9,6 +9,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/app/components/ui/alert-dialog";
+import { Button } from "@/app/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
@@ -77,7 +78,7 @@ export default function QuizFooter({
               Submit
             </button>
           </AlertDialogTrigger>
-          <AlertDialogContent className="bg-whiteSmoke dark:bg-night-500">
+          <AlertDialogContent className="bg-whiteSmoke dark:bg-night-500 p-5">
             <AlertDialogHeader>
               <AlertDialogTitle>Do You Really Want to Submit?</AlertDialogTitle>
               <AlertDialogDescription>
@@ -89,9 +90,21 @@ export default function QuizFooter({
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction onClick={handleNextQuestion}>
-                Submit
+              <AlertDialogCancel className="p-0 m-0">
+                <Button className="border-[0.1em] bg-whiteSmoke border-black-300">
+                  Cancel
+                </Button>
+              </AlertDialogCancel>
+              <AlertDialogAction
+                onClick={handleNextQuestion}
+                className="p-0 m-0"
+              >
+                <Button
+                  variant={"destructive"}
+                  className="border-[0.1em] border-red-300"
+                >
+                  Submit
+                </Button>
               </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
