@@ -72,7 +72,7 @@ const QuizQuestion = () => {
       </div>
       <div className="md:h-5/6 h-full w-full dark:bg-dark_green-200 text-white bg-dark_green-500/80 md:shadow-lg dark:shadow-secondary shadow-night-400 rounded-2xl flex flex-col md:px-14 py-8 gap-4">
         <span className="flex flex-col gap-3 px-5 md:px-0">
-          <span className="flex justify-between">
+          <span className="flex justify-between items-center">
             <h5 className="text-secondary text-lg font-light">
               Q {currentQuestionIndex + 1}
             </h5>

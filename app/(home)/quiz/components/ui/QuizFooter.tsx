@@ -71,10 +71,7 @@ export default function QuizFooter({
       {isFlagged.includes(true) && currentQuestionIndex === 9 ? (
         <AlertDialog>
           <AlertDialogTrigger>
-            <button
-              onClick={() => {}}
-              className="rounded-lg px-10 py-2 border-2 border-myrtle_green-900 bg-myrtle_green-400 text-whiteSmoke"
-            >
+            <button className="rounded-lg px-10 py-2 border-2 border-myrtle_green-900 bg-primary">
               Submit
             </button>
           </AlertDialogTrigger>
@@ -82,16 +79,16 @@ export default function QuizFooter({
             <AlertDialogHeader>
               <AlertDialogTitle>Do You Really Want to Submit?</AlertDialogTitle>
               <AlertDialogDescription>
-                You Flagged Questions
+                You Flagged Questions :
                 {isFlagged.map(
-                  (_, index) => isFlagged[index] && `${index + 1}, `
+                  (_, index) => isFlagged[index] && ` ${index + 1}, `
                 )}
                 and you will not be able to go back to them.
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel className="p-0 m-0">
-                <Button className="border-[0.1em] bg-whiteSmoke border-black-300">
+                <Button className="hover:bg-black/20 text-black dark:text-white border-[0.1em] bg-whiteSmoke border-black-300">
                   Cancel
                 </Button>
               </AlertDialogCancel>
