@@ -1,3 +1,4 @@
+"use client";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -16,8 +17,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/app/components/ui/tooltip";
-import useQuizState from "@/app/hooks/useQuizState";
 import clsx from "clsx";
+import { useEffect } from "react";
 
 export default function QuizFooter({
   handlePreviousQuestion,
@@ -35,39 +36,52 @@ export default function QuizFooter({
 }) {
   return (
     <span className="flex justify-between items-end h-full mt-10 md:mt-0 gap-3">
-      <TooltipProvider delayDuration={0}>
-        <Tooltip>
-          <TooltipTrigger>
-            <button
-              onClick={handlePreviousQuestion}
-              disabled={currentQuestionIndex === 0}
-              className="bg-gray-700 rounded-lg md:px-10 px-2 py-2 text-white disabled:cursor-not-allowed border-2 border-myrtle_green-900"
-            >
-              Previous Question
-            </button>
-          </TooltipTrigger>
-          <TooltipContent className="bg-whiteSmoke dark:bg-night-500">
-            <div className="grid grid-cols-4 gap-5 py-4">
-              {[...Array(10)].map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => goToQuestion(index)}
-                  className={clsx(
-                    "rounded-full w-8 h-8 border-2 border-myrtle_green-600",
-                    index === currentQuestionIndex
-                      ? "bg-myrtle_green-700 text-black"
-                      : isFlagged[index]
-                      ? "bg-red-500 text-white"
-                      : "bg-whiteSmoke dark:bg-night-500 dark:text-white"
-                  )}
-                >
-                  {index + 1}
-                </button>
-              ))}
-            </div>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+      {/Mobile|Tablet/.test(navigator.userAgent) ? (
+        <>
+          <button
+            onClick={handlePreviousQuestion}
+            disabled={currentQuestionIndex === 0}
+            className="bg-gray-700 rounded-lg md:px-10 px-2 py-2 text-white disabled:cursor-not-allowed border-2 border-myrtle_green-900"
+          >
+            Previous Question
+          </button>
+        </>
+      ) : (
+        <TooltipProvider delayDuration={0}>
+          <Tooltip>
+            <TooltipTrigger>
+              <button
+                onClick={handlePreviousQuestion}
+                disabled={currentQuestionIndex === 0}
+                className="bg-gray-700 rounded-lg md:px-10 px-2 py-2 text-white disabled:cursor-not-allowed border-2 border-myrtle_green-900"
+              >
+                Previous Question
+              </button>
+            </TooltipTrigger>
+            <TooltipContent className="bg-whiteSmoke dark:bg-night-500">
+              <div className="grid grid-cols-4 gap-5 py-4">
+                {[...Array(10)].map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => goToQuestion(index)}
+                    className={clsx(
+                      "rounded-full w-8 h-8 border-2 border-myrtle_green-600",
+                      index === currentQuestionIndex
+                        ? "bg-myrtle_green-700 text-black"
+                        : isFlagged[index]
+                        ? "bg-red-500 text-white"
+                        : "bg-whiteSmoke dark:bg-night-500 dark:text-white"
+                    )}
+                  >
+                    {index + 1}
+                  </button>
+                ))}
+              </div>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      )}
+
       {isFlagged.includes(true) && currentQuestionIndex === 9 ? (
         <AlertDialog>
           <AlertDialogTrigger>
@@ -79,16 +93,16 @@ export default function QuizFooter({
             <AlertDialogHeader>
               <AlertDialogTitle>Do You Really Want to Submit?</AlertDialogTitle>
               <AlertDialogDescription>
-                You Flagged Questions :
+                You Flagged Question(s) :
                 {isFlagged.map(
                   (_, index) => isFlagged[index] && ` ${index + 1}, `
                 )}
                 and you will not be able to go back to them.
               </AlertDialogDescription>
             </AlertDialogHeader>
-            <AlertDialogFooter>
+            <AlertDialogFooter className="max-md:gap-3">
               <AlertDialogCancel className="p-0 m-0">
-                <Button className="hover:bg-black/20 text-black dark:text-white border-[0.1em] bg-whiteSmoke border-black-300">
+                <Button className="w-full hover:bg-black/20 text-black dark:text-white border-[0.1em] bg-whiteSmoke border-black/50">
                   Cancel
                 </Button>
               </AlertDialogCancel>
@@ -98,7 +112,7 @@ export default function QuizFooter({
               >
                 <Button
                   variant={"destructive"}
-                  className="border-[0.1em] border-red-300"
+                  className="border-[0.1em] border-red-300 w-full"
                 >
                   Submit
                 </Button>
